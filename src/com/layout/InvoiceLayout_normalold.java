@@ -38,6 +38,11 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.SwingUtilities;
 
+import com.brunchboy.util.swing.relativelayout.AttributeConstraint;
+import com.brunchboy.util.swing.relativelayout.AttributeType;
+import com.brunchboy.util.swing.relativelayout.DependencyManager;
+import com.brunchboy.util.swing.relativelayout.RelativeLayout;
+
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
  * Builder, which is free for non-commercial use. If Jigloo is being used
@@ -48,7 +53,7 @@ import javax.swing.SwingUtilities;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class InvoiceLayout extends javax.swing.JFrame {
+public class InvoiceLayout_normalold extends javax.swing.JFrame {
 	private static final int ARC_WIDTH = 30;
 	private static final int ARC_HEIGHT = 30;
 	private JPanel mainPanel;
@@ -91,14 +96,14 @@ public class InvoiceLayout extends javax.swing.JFrame {
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				InvoiceLayout inst = new InvoiceLayout();
+				InvoiceLayout_normalold inst = new InvoiceLayout_normalold();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 
-	public InvoiceLayout() {
+	public InvoiceLayout_normalold() {
 		super();
 		initGUI();
 	}
@@ -109,17 +114,54 @@ public class InvoiceLayout extends javax.swing.JFrame {
 
 			BufferedImage[] images = loadImages();
 			FlowLayout mainpanelLayout = new FlowLayout();
-			mainPanel = new JPanel();
+			RelativeLayout relative_layout = new RelativeLayout();
+			RelativeLayout itemspanel_layout = new RelativeLayout();
+			getContentPane().setLayout(relative_layout);
+			
 			ItemsPanel_Box = new BackgroundImageComponent(images[0]);
+			ItemsPanel_Box.setLayout(itemspanel_layout);
+			getContentPane().add(ItemsPanel_Box,"itempanel");
+			
+			
+			relative_layout.addConstraint("itempanel", AttributeType.TOP,
+		            new AttributeConstraint(DependencyManager.ROOT_NAME,
+		                                    AttributeType.TOP, 10));
+			relative_layout.addConstraint("itempanel", AttributeType.HORIZONTAL_CENTER,
+		            new AttributeConstraint(DependencyManager.ROOT_NAME,
+		                                    AttributeType.HORIZONTAL_CENTER));
+			
 			RightPanel = new BackgroundImageComponent(images[1]);
-			mainPanel.setLayout(mainpanelLayout);
-			getContentPane().add(mainPanel);
-			mainPanel.add(ItemsPanel_Box);
-			mainPanel.add(RightPanel);
+			
+			relative_layout.addConstraint("rightpanel", AttributeType.TOP, new AttributeConstraint("mainpanel",
+                    AttributeType.TOP, 5));
+			relative_layout.addConstraint("rightpanel", AttributeType.RIGHT,
+		            new AttributeConstraint(DependencyManager.ROOT_NAME,
+		                                    AttributeType.RIGHT, -5));
 			
 			
+			
+			
+			
+			
+			
+			getContentPane().add(RightPanel,"rightpanel");
+			relative_layout.addConstraint("rightpanel", AttributeType.LEFT, new AttributeConstraint("itemspanel",
+                    AttributeType.LEFT, ItemsPanel_Box.getWidth() + 15));
+			
+			/*Initialize items panel components*/
+			field_searchproducts = new JTextField();
+			//ItemsPanel_Box.add(field_searchproducts);
+			field_searchproducts.setText("Search products");
+			field_searchproducts.setBounds(15, 6, 204, 36);
+			// Position 10 pixels below the top of the window, 5pixel from left horizontally.
+			itemspanel_layout.addConstraint("search", AttributeType.TOP,
+	            new AttributeConstraint(DependencyManager.ROOT_NAME,
+	                                    AttributeType.TOP, 15));
+			itemspanel_layout.addConstraint("search", AttributeType.LEFT,
+	            new AttributeConstraint(DependencyManager.ROOT_NAME,
+	                                    AttributeType.LEFT, 5));
 
-			// Initialize items panel components
+			// Initialize right panel components
 			//ItemsPanel_Box.setLayout(null);
 			
 			button_categery1 = new JButton();
@@ -129,29 +171,29 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			
 
 			button_categery2 = new JButton();
-			RightPanel.add(button_categery2);
+			//RightPanel.add(button_categery2);
 			button_categery2.setText("Chinese ");
 			
 
 			button_categery3 = new JButton();
-			RightPanel.add(button_categery3);
+			//RightPanel.add(button_categery3);
 			button_categery3.setText("South");
 			
 			button_categery4 = new JButton();
-			RightPanel.add(button_categery4);
+			//RightPanel.add(button_categery4);
 			button_categery4.setText("North");
 			
 
 			button_categery5 = new JButton();
-			RightPanel.add(button_categery5);
+			//RightPanel.add(button_categery5);
 			button_categery5.setText("Mexican");
 			
 			
 
-			ItemsPanel_Box.add(tableheaderpanel);
+			//ItemsPanel_Box.add(tableheaderpanel);
 
 			label_totalamount = new JLabel("Total: ", SwingConstants.RIGHT);
-			ItemsPanel_Box.add(label_totalamount);
+			//ItemsPanel_Box.add(label_totalamount);
 			label_totalamount.setLayout(null);
 			label_totalamount.setName("label_totalamount");
 			label_totalamount.setVerticalAlignment(SwingConstants.CENTER);
@@ -159,7 +201,7 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			label_totalamount.setText("Subtotal");
 
 			label_discount = new JLabel("(-) Discount: ", SwingConstants.RIGHT);
-			ItemsPanel_Box.add(label_discount);
+			//ItemsPanel_Box.add(label_discount);
 			label_discount.setLayout(null);
 			label_discount.setName("label_discount");
 			label_discount.setVerticalAlignment(SwingConstants.CENTER);
@@ -167,7 +209,7 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			label_discount.setText("Tax:");
 
 			label_grandtotal = new JLabel("Grand Total: ", SwingConstants.RIGHT);
-			ItemsPanel_Box.add(label_grandtotal);
+			//ItemsPanel_Box.add(label_grandtotal);
 			label_grandtotal.setLayout(null);
 			label_grandtotal.setName("label_grandtotal");
 			label_grandtotal.setVerticalAlignment(SwingConstants.CENTER);
@@ -175,32 +217,32 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			label_grandtotal.setText("TOTAL:");
 
 			totalamount_lable = new JLabel("0", SwingConstants.CENTER);
-			ItemsPanel_Box.add(totalamount_lable);
+			//ItemsPanel_Box.add(totalamount_lable);
 			totalamount_lable.setLayout(null);
 			totalamount_lable.setVerticalAlignment(SwingConstants.CENTER);
 			totalamount_lable.setBounds(501, 425, 159, 45);
 			totalamount_lable.setName("totalamount_lable");
 
 			discountamount_lable = new JLabel("0", SwingConstants.CENTER);
-			ItemsPanel_Box.add(discountamount_lable);
+			//ItemsPanel_Box.add(discountamount_lable);
 			discountamount_lable.setLayout(null);
 			discountamount_lable.setBounds(501, 478, 159, 45);
 			discountamount_lable.setVerticalAlignment(SwingConstants.CENTER);
 			discountamount_lable.setName("discountamount_lable");
 
 			grandtotal_lable = new JLabel("0", SwingConstants.CENTER);
-			ItemsPanel_Box.add(grandtotal_lable);
+			//ItemsPanel_Box.add(grandtotal_lable);
 			grandtotal_lable.setLayout(null);
 			grandtotal_lable.setBounds(501, 536, 159, 45);
 			grandtotal_lable.setName("grandtotal_lable");
 
 			filed_searchcustomer = new JTextField();
-			ItemsPanel_Box.add(filed_searchcustomer);
+			//ItemsPanel_Box.add(filed_searchcustomer);
 			filed_searchcustomer.setText("Search customer");
 			filed_searchcustomer.setBounds(22, 429, 169, 29);
 
 			label_customername = new JLabel();
-			ItemsPanel_Box.add(label_customername);
+			//ItemsPanel_Box.add(label_customername);
 			label_customername.setText("No customer");
 			label_customername.setBounds(22, 479, 94, 17);
 
@@ -208,24 +250,21 @@ public class InvoiceLayout extends javax.swing.JFrame {
 					new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9",
 							"10" });
 			spinner_quantity = new JSpinner();
-			ItemsPanel_Box.add(spinner_quantity);
+			//ItemsPanel_Box.add(spinner_quantity);
 			spinner_quantity.setModel(spinner_quantityModel);
 			spinner_quantity.setBounds(454, 63, 147, 29);
 
 			label_addimage = new JButton(new ImageIcon("images/add-icon.jpg"));
-			ItemsPanel_Box.add(label_addimage);
+			//ItemsPanel_Box.add(label_addimage);
 			label_addimage.setBounds(610, 67, 20, 20);
 
 			panel_searchproducts = new JPanel();
 			panel_searchproducts.setBackground(Color.LIGHT_GRAY);
-			ItemsPanel_Box.add(panel_searchproducts);
+			//ItemsPanel_Box.add(panel_searchproducts);
 			panel_searchproducts.setBounds(5, 6, 672, 46);
 			panel_searchproducts.setLayout(null);
 
-			field_searchproducts = new JTextField();
-			panel_searchproducts.add(field_searchproducts);
-			field_searchproducts.setText("Search products");
-			field_searchproducts.setBounds(15, 6, 204, 36);
+			
 
 			table_invoiceModel = new DefaultTableModel(new String[][] {},
 					producttable_headder);
@@ -302,7 +341,7 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			jLabel3.setBounds(567, 222, 34, 14);
 
 			JScrollPane scrollpane = new JScrollPane(table_invoice);
-			ItemsPanel_Box.add(scrollpane);
+			//ItemsPanel_Box.add(scrollpane);
 			scrollpane.setBounds(2, 112, 680, 296);
 			scrollpane.setName("scrollpane");
 			scrollpane.setAutoscrolls(true);
@@ -314,7 +353,7 @@ public class InvoiceLayout extends javax.swing.JFrame {
 			discountamount_lable.setVerticalAlignment(SwingConstants.CENTER);
 
 			pack();
-			this.setSize(1250, 726);
+			this.setSize(1000, 600);
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
@@ -341,27 +380,6 @@ public class InvoiceLayout extends javax.swing.JFrame {
 		return images;
 	}
 
-	class BackgroundImageComponent extends JPanel {
-		BufferedImage image;
-
-		public BackgroundImageComponent(BufferedImage image) {
-			this.image = image;
-		}
-
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			int w = getWidth();
-			int h = getHeight();
-			int imageWidth = image.getWidth();
-			int imageHeight = image.getHeight();
-			int x = (w - imageWidth) / 2; // center the image
-			int y = (h - imageHeight) / 2; // in its container
-			g.drawImage(image, x, y, this);
-		}
-
-		public Dimension getPreferredSize() {
-			return new Dimension(image.getWidth(), image.getHeight());
-		}
-	}
+	
 
 }

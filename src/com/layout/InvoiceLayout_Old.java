@@ -88,7 +88,7 @@ public class InvoiceLayout_Old extends javax.swing.JFrame {
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				InvoiceLayout inst = new InvoiceLayout();
+				InvoiceLayout_normalold inst = new InvoiceLayout_normalold();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
