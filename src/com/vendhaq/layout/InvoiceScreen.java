@@ -6,8 +6,12 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.TexturePaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -19,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,6 +33,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -48,17 +54,29 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.plaf.metal.MetalComboBoxUI.MetalComboBoxLayoutManager;
 import javax.swing.plaf.synth.SynthComboBoxUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import sun.font.Font2DHandle;
+
+import ch.rakudave.suggest.JSuggestField;
+
 import com.sun.corba.se.impl.protocol.giopmsgheaders.KeyAddr;
 import com.vendhaq.handlers.RightPanelHandler;
+import com.vendhaq.repos.ContactsRepository;
 import com.vendhaq.repos.LocalDbConfiguration;
+import com.vendhaq.utils.Util;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class InvoiceScreen extends JFrame {
@@ -68,7 +86,7 @@ public class InvoiceScreen extends JFrame {
 	private JPanel LeftPanel;
 	private BufferedImage[] images;
 	private JTextField Field_SearchProduct;
-	private JTextField field_customersearch;
+	private JSuggestField field_customersearch;
 	private JLabel label_productimage;
 	private JLabel label_productname;
 	private JLabel label_customername_label;
@@ -98,7 +116,7 @@ public class InvoiceScreen extends JFrame {
 	private DefaultTableModel table_invoiceModel;
 	private JTableHeader tabelheadder;
 	public static String[] producttable_headder = { "Qty", "Item Name",
-			"Rate ", "MRP", "Delete" };
+			"Rate ", "MRP", "Del" };
 	private int cell_width[] = { 20, 150, 30, 30, 10 };
 	private JPanel panel_products;
 
@@ -113,7 +131,18 @@ public class InvoiceScreen extends JFrame {
 	private RightPanelHandler Rightpanel_Handler = null;
 	private List<JButton> buttons_category;
 	private List<JButton> buttons_products;
+	private JSuggestField field_productsearch;
 	private static final int MAX_BUTTONS = 16;
+
+	private int qty_index = 0;
+	private int productname_index = 1;
+	private int rate_index = 2;
+	private int mrp_index = 3;
+	private int delete_index = 4;
+	private String previous_quantity;
+	private boolean CELLUPDATE;
+	private String RIGHT_OFFSET = "  ";
+	private ContactsRepository contactsRepo = null;
 
 	public InvoiceScreen() {
 		images = loadImages();
@@ -160,10 +189,6 @@ public class InvoiceScreen extends JFrame {
 					int num_prod = buttons_category.size();
 					for (int i = 0; i < num_prod; i++) {
 						JButton button = buttons_category.get(i);
-
-						button.setPreferredSize(new Dimension(100, 50));
-						button.setBorder(new LineBorder(Color.LIGHT_GRAY, 1,
-								true));
 						button.addActionListener(new CategoryButton_ActionListener());
 						panel_products.add(button);
 					}
@@ -247,50 +272,60 @@ public class InvoiceScreen extends JFrame {
 		if (panel_products == null) {
 			panel_products = new JPanel();
 			panel_products.setBounds(6, 36, 503, 468);
-//			panel_products.setLayout(new FlowLayout(SwingConstants.VERTICAL,
-//					1, 2));
-			 panel_products.setLayout(new GridLayout(0, 4));
+			// panel_products.setLayout(new FlowLayout(SwingConstants.VERTICAL,
+			// 1, 2));
+			panel_products.setLayout(new GridLayout(0, 4));
 			panel_products.setBorder(new LineBorder(Color.lightGray, 1, false));
 			panel_products.setBackground(Color.WHITE);
 
 			/* Adding panel category jbutton */
 			buttons_category = Rightpanel_Handler.readCategeroys();
-			
-			addToPRoductsPanel(buttons_category, new CategoryButton_ActionListener());
-			
-			
-			label_number_products.setText(String.valueOf(buttons_category.size()));
+
+			addToPRoductsPanel(buttons_category,
+					new CategoryButton_ActionListener());
+
+			label_number_products.setText(String.valueOf(buttons_category
+					.size()));
 			label_rightpanel_headder.setText("Category Items");
 
 		}
 		return panel_products;
 	}
 
-	private void addToPRoductsPanel(List<JButton> buttons, ActionListener listener) {
+	private void addToPRoductsPanel(List<JButton> buttons,
+			ActionListener listener) {
 		int num_prod = buttons.size();
 		int i = 0;
 		for (; i < num_prod; i++) {
 			JButton button = buttons.get(i);
 			button.setBackground(Color.LIGHT_GRAY);
 			button.setOpaque(true);
+
 			button.setPreferredSize(new Dimension(100, 50));
-			button.setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
+
+			// button.setIcon(new ImageIcon(getClass().getResource(
+			// "/com/vendhaq/layout/images/empty_button.png")));
+			// button.setVerticalTextPosition(SwingConstants.CENTER);
+			// button.setHorizontalTextPosition(SwingConstants.CENTER);
 			button.addActionListener(listener);
 			panel_products.add(button);
 		}
-		if(num_prod < MAX_BUTTONS)
-		{
+		if (num_prod < MAX_BUTTONS) {
 			int current_index = i;
-			for ( ;current_index < MAX_BUTTONS; current_index++) {
+			for (; current_index < MAX_BUTTONS; current_index++) {
 				panel_products.add(new JLabel());
 			}
 		}
-		
+
 	}
 
 	private JButton getButton_pay() {
 		if (button_pay == null) {
-			button_pay = new JButton("Pay(F4)");
+			button_pay = new JButton();
+			button_pay.setIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/pay_button.png")));
+			button_pay.setRolloverIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/pay_rollover.png")));
 			button_pay.setBounds(356, 505, 75, 35);
 		}
 		return button_pay;
@@ -299,7 +334,12 @@ public class InvoiceScreen extends JFrame {
 
 	private JButton getButton_discount() {
 		if (button_discount == null) {
-			button_discount = new JButton("Discount");
+			button_discount = new JButton();
+			button_discount.setIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/discount_button.png")));
+			button_discount
+					.setRolloverIcon(new ImageIcon(getClass().getResource(
+							"/com/vendhaq/layout/images/discount_rollover.png")));
 			button_discount.setBounds(272, 505, 75, 35);
 		}
 		return button_discount;
@@ -308,7 +348,11 @@ public class InvoiceScreen extends JFrame {
 
 	private JButton getButton_notes() {
 		if (button_notes == null) {
-			button_notes = new JButton("Notes");
+			button_notes = new JButton();
+			button_notes.setIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/note_button.png")));
+			button_notes.setRolloverIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/note_rollover.png")));
 			button_notes.setBounds(186, 505, 75, 35);
 		}
 		return button_notes;
@@ -317,7 +361,12 @@ public class InvoiceScreen extends JFrame {
 
 	private JButton getButton_park() {
 		if (button_park == null) {
-			button_park = new JButton("Park(F5)");
+			button_park = new JButton();
+			button_park.setIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/park_button.png")));
+			button_park.setRolloverIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/park_rollover.png")));
+			button_void.setBounds(9, 505, 75, 35);
 			button_park.setBounds(99, 505, 75, 35);
 		}
 		return button_park;
@@ -326,8 +375,14 @@ public class InvoiceScreen extends JFrame {
 
 	private JButton getButton_void() {
 		if (button_void == null) {
-			button_void = new JButton("Void");
+			button_void = new JButton();
+
+			button_void.setIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/voidbutton.png")));
 			button_void.setBounds(9, 505, 75, 35);
+			button_void.setRolloverIcon(new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/void_rollover.png")));
+			// button_void.setBorder(new LineBorder(Color.BLACK));
 		}
 		return button_void;
 
@@ -345,9 +400,11 @@ public class InvoiceScreen extends JFrame {
 
 	private JLabel getLabel_topay_amount() {
 		if (label_topay_amount == null) {
-			label_topay_amount = new JLabel();
-			label_topay_amount.setText("$25.00");
+			label_topay_amount = new JLabel("$25.00" + RIGHT_OFFSET,
+					SwingConstants.RIGHT);
+			label_topay_amount.setFont(new Font("Arial", Font.BOLD, 12));
 			label_topay_amount.setBounds(324, 467, 93, 26);
+			label_topay_amount.setVerticalAlignment(SwingConstants.CENTER);
 		}
 		return label_topay_amount;
 	}
@@ -356,6 +413,7 @@ public class InvoiceScreen extends JFrame {
 		if (label_topay_label == null) {
 			label_topay_label = new JLabel();
 			label_topay_label.setText("TO PAY");
+			label_topay_label.setFont(new Font("Arial", Font.BOLD, 12));
 			label_topay_label.setBounds(204, 468, 83, 18);
 		}
 		return label_topay_label;
@@ -363,17 +421,20 @@ public class InvoiceScreen extends JFrame {
 
 	private JLabel getLabel_total_amount() {
 		if (label_total_amount == null) {
-			label_total_amount = new JLabel();
-			label_total_amount.setText("$25.00");
+			label_total_amount = new JLabel("$25.00" + RIGHT_OFFSET,
+					SwingConstants.RIGHT);
+			label_total_amount.setFont(new Font("Arial", Font.BOLD, 12));
 			label_total_amount.setBounds(325, 433, 93, 23);
+			label_total_amount.setVerticalAlignment(SwingConstants.CENTER);
 		}
 		return label_total_amount;
 	}
 
 	private JLabel getLabel_tax_amount() {
 		if (label_tax_amount == null) {
-			label_tax_amount = new JLabel();
-			label_tax_amount.setText("0.00");
+			label_tax_amount = new JLabel("0.00" + RIGHT_OFFSET,
+					SwingConstants.RIGHT);
+			label_tax_amount.setVerticalAlignment(SwingConstants.CENTER);
 			label_tax_amount.setBounds(323, 396, 95, 26);
 		}
 		return label_tax_amount;
@@ -381,9 +442,10 @@ public class InvoiceScreen extends JFrame {
 
 	private JLabel getLabel_subtotal_amount() {
 		if (label_subtotal_amount == null) {
-			label_subtotal_amount = new JLabel();
-			label_subtotal_amount.setText("$25.50");
+			label_subtotal_amount = new JLabel("$25.50" + RIGHT_OFFSET,
+					SwingConstants.RIGHT);
 			label_subtotal_amount.setBounds(326, 366, 94, 25);
+			label_subtotal_amount.setVerticalAlignment(SwingConstants.CENTER);
 		}
 		return label_subtotal_amount;
 	}
@@ -401,6 +463,7 @@ public class InvoiceScreen extends JFrame {
 		if (Label_total_label == null) {
 			Label_total_label = new JLabel();
 			Label_total_label.setText("TOTAL");
+			Label_total_label.setFont(new Font("Arial", Font.BOLD, 12));
 			Label_total_label.setBounds(209, 430, 55, 18);
 		}
 		return Label_total_label;
@@ -435,21 +498,15 @@ public class InvoiceScreen extends JFrame {
 		return button_addcustomer;
 	}
 
-	private JTextField getField_customersearch() {
-		if (field_customersearch == null) {
-			field_customersearch = new JTextField();
-			field_customersearch.setToolTipText("Customer search");
-			field_customersearch.setBounds(9, 384, 142, 31);
-		}
-		return field_customersearch;
-	}
-
+	
 	private JScrollPane getTabel_invoices() {
 		if (tabel_invoices == null) {
 			tabel_invoices = new JScrollPane();
-			tabel_invoices.setBounds(4, 112, 435, 244);
+			tabel_invoices.setBounds(4, 112, 435, 240);
 			tabel_invoices.setViewportView(getJTable0());
 			tabel_invoices.setBackground(Color.WHITE);
+			tabel_invoices.setOpaque(true);
+			tabel_invoices.setAutoscrolls(true);
 
 		}
 		return tabel_invoices;
@@ -459,6 +516,7 @@ public class InvoiceScreen extends JFrame {
 		if (table_invoice == null) {
 			table_invoiceModel = new DefaultTableModel(new String[][] {},
 					producttable_headder);
+
 			table_invoice = new JTable(table_invoiceModel) {
 				public Class getColumnClass(int column) {
 					return getValueAt(0, column).getClass();
@@ -469,20 +527,19 @@ public class InvoiceScreen extends JFrame {
 					Component c = super.prepareRenderer(renderer, row, column);
 					JComponent jc = (JComponent) c;
 					if (!isRowSelected(row))
-						c.setBackground(Color.white);
+						c.setBackground(Color.WHITE);
 					return c;
 				}
 
 				@Override
 				public boolean isCellEditable(int row, int column) {
-
 					return false;
 				}
 
 			};
 			table_invoice.setLayout(null);
 			// 2, 49, 940, 300
-			table_invoice.setBounds(4, 112, 435, 244);
+			table_invoice.setBounds(4, 112, 435, 240);
 			table_invoice.setIntercellSpacing(new Dimension(10, 50));
 			table_invoice.setForeground(Color.BLACK);
 			table_invoice.setBackground(Color.white);
@@ -490,7 +547,18 @@ public class InvoiceScreen extends JFrame {
 			table_invoice.setRowMargin(5);
 			table_invoice.setRowHeight(30);
 			table_invoice.setFont(new Font("Arial", Font.BOLD, 14));
+			table_invoice.setTableHeader(null);
 
+			table_invoice.setFont(new Font("Arail", Font.PLAIN, 12));
+			// table_invoice.setPreferredSize(new java.awt.Dimension(435, 240));
+			table_invoice.setBorder(new LineBorder(Color.LIGHT_GRAY));
+			table_invoice.setShowHorizontalLines(true);
+			table_invoice.setShowVerticalLines(false);
+			table_invoice.getColumnModel().getColumn(4)
+					.setCellRenderer(new ImageRenderer());
+			table_invoice.addMouseListener(new TableMouseActionLister());
+
+			// table_invoice.setBackground(new Color(151, 221, 251));
 			/** Initialize table headder panle elements */
 
 			// table_invoice.setCellSelectionEnabled(false);
@@ -500,13 +568,10 @@ public class InvoiceScreen extends JFrame {
 			// cellSelectionModel.addListSelectionListener(new
 			// SelectionListener());
 
-			table_invoice.setFont(new Font("Arail", Font.CENTER_BASELINE, 12));
-			table_invoice.setPreferredSize(new java.awt.Dimension(435, 220));
-
 			// tabelheadder = table_invoice.getTableHeader();
-			//
+			// tabelheadder.setVisible(false);
 			// tabelheadder.setBackground(Color.GRAY);
-			//
+
 			// tabelheadder.setForeground(Color.BLACK);
 			// tabelheadder.setFont(new Font("Arial", Font.BOLD, 12));
 			// tabelheadder.setOpaque(true);
@@ -541,6 +606,7 @@ public class InvoiceScreen extends JFrame {
 					"/com/vendhaq/layout/images/add-icon.png")));
 			button_addqty.setRolloverEnabled(false);
 			button_addqty.setBounds(369, 57, 26, 26);
+			button_addqty.addActionListener(new AddQuantity_ActionListener());
 		}
 		return button_addqty;
 	}
@@ -611,6 +677,45 @@ public class InvoiceScreen extends JFrame {
 		return cbo;
 	}
 
+	private Component getProductSuggestField() {
+		Vector<String> productnames = Rightpanel_Handler.readProductNames();
+		field_productsearch = new JSuggestField(this, productnames);
+
+		field_productsearch
+				.setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+		field_productsearch.setBounds(19, 10, 179, 27);
+		field_productsearch.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String productname = field_productsearch.getText().trim();
+				field_productsearch.setText("");
+				if (productname.length() > 0) {
+					try {
+						addInvoiceTableRow(productname);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+
+				}
+
+			}
+		});
+		return field_productsearch;
+	}
+
+	private Component getContactSuggestField() {
+		contactsRepo  = new ContactsRepository();
+		ResultSet AllContacts = contactsRepo.readAllContacts();
+		Vector<String> contactnames = contactsRepo
+				.readContactNames(AllContacts);
+		field_customersearch = new JSuggestField(this, contactnames);
+		field_customersearch.setToolTipText("Customer search");
+		field_customersearch.setBounds(9, 384, 142, 31);
+		field_customersearch.addActionListener(new CustomerSearchListener());
+		return field_customersearch;
+	}
+
 	private JPanel getLeftPanel() {
 		if (LeftPanel == null) {
 			LeftPanel = new BackgroundImageComponent(images[0]);
@@ -618,12 +723,13 @@ public class InvoiceScreen extends JFrame {
 			LeftPanel.setBounds(6, 6, 441, 547);
 			LeftPanel.setLayout(null);
 			// LeftPanel.add(getField_SearchProduct());
-			LeftPanel.add(getComboProductSearch());
+			LeftPanel.add(getProductSuggestField());
+			// LeftPanel.add(getComboProductSearch());
+			LeftPanel.add(getContactSuggestField());
 			LeftPanel.add(getLabel_productimage());
 			LeftPanel.add(getLabel_productname());
 			LeftPanel.add(getSpinner_quantity());
 			LeftPanel.add(getButton_addqty());
-			LeftPanel.add(getField_customersearch());
 			LeftPanel.add(getButton_addcustomer());
 			LeftPanel.add(getLabel_tax_label());
 			LeftPanel.add(getLabel_total_label());
@@ -721,6 +827,7 @@ public class InvoiceScreen extends JFrame {
 
 	private void formatTableCells(TableColumn column, int width) {
 		column.setPreferredWidth(width);
+
 	}
 
 	private String[] readProducts(String name) throws SQLException {
@@ -815,8 +922,6 @@ public class InvoiceScreen extends JFrame {
 
 	private class CategoryButton_ActionListener implements ActionListener {
 
-		
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selected_category = e.getActionCommand();
@@ -826,9 +931,9 @@ public class InvoiceScreen extends JFrame {
 
 			buttons_products = Rightpanel_Handler
 					.readProducts(selected_category);
-			addToPRoductsPanel(buttons_products, new ProductButton_ActionListener());
-			
-			
+			addToPRoductsPanel(buttons_products,
+					new ProductButton_ActionListener());
+
 			label_number_products.setText(String.valueOf(buttons_products
 					.size()));
 			label_rightpanel_headder.setText("Products");
@@ -843,11 +948,275 @@ public class InvoiceScreen extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String selected_product = e.getActionCommand();
+			String selected_product = e.getActionCommand().trim();
 			System.out.println("Selected Product: " + selected_product);
+
+			if (selected_product.length() > 0) {
+				try {
+					addInvoiceTableRow(selected_product);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+
+			}
 
 		}
 
+	}
+
+	protected void addInvoiceTableRow(String productname) throws SQLException {
+		String sql = "select * from vtiger_products where productname = '"
+				+ productname + "'";
+
+		Connection connection = LocalDbConfiguration.getConnection();
+		Statement stmt = connection.createStatement();
+		ResultSet result_product = stmt.executeQuery(sql);
+		if (result_product == null) {
+			JOptionPane.showMessageDialog(null, "No product available");
+		} else {
+			boolean acept = true;
+			if (acept) {
+				int exist_rownum = isProductAlreadyInTable(result_product,
+						productname);
+				System.out.println("is row exist row number: " + exist_rownum);
+				if (exist_rownum == -1) {
+
+					// validate product quantity in store
+					boolean status = true;// validateProductQuantity(product,
+											// 1);
+					if (status) {
+						addProductTable(result_product);
+					} else {
+						// JOptionPane.showMessageDialog(null,
+						// productvalidity_errormsg);
+					}
+				} else {
+					int existquantity = Integer.parseInt((String) table_invoice
+							.getValueAt(exist_rownum, qty_index));
+					boolean status = true; // validateProductQuantity(product,existquantity
+											// + 1);
+					if (status) {
+						updateProductTable(result_product, exist_rownum);
+					} else {
+						// JOptionPane.showMessageDialog(null,
+						// productvalidity_errormsg);
+					}
+				}
+			} else {
+				System.out.println("validateProduct failed");
+				// JOptionPane.showMessageDialog(null,
+				// productvalidity_errormsg);
+			}
+		}
+
+	}
+
+	private void updateProductTable(ResultSet product, int exist_rownum) {
+		String prev_qty = (String) table_invoiceModel.getValueAt(exist_rownum,
+				qty_index);
+		int qty = Integer.valueOf(prev_qty);
+		qty = qty + 1;
+
+		String productname = null, rate = null;
+		try {
+			productname = product.getString("productname");
+			rate = product.getString("netprice");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String rowData[] = calculateInvoiceData(productname, rate,
+				String.valueOf(qty));
+		if (rowData.length != 0) {
+			CELLUPDATE = true;
+			// Update the row net amount field & quatity field only
+			table_invoiceModel.setValueAt(rowData[qty_index], exist_rownum,
+					qty_index);
+			table_invoiceModel.setValueAt(rowData[mrp_index], exist_rownum,
+					mrp_index);
+
+		}
+		updateTotalLabels();
+		CELLUPDATE = false;
+	}
+
+	/**
+	 * Add a new invoice to the product invoice table.
+	 * 
+	 * @param products
+	 *            - Invoice product to add table.
+	 */
+	private void addProductTable(ResultSet product) {
+
+		String productname = null, rate = null;
+		try {
+			productname = product.getString("productname");
+			rate = product.getString("netprice");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String rowData[] = calculateInvoiceData(productname, rate, "1");
+		// add product to table dynamically
+		if (rowData.length != 0) {
+
+			table_invoiceModel.addRow(rowData);
+			ImageIcon imageIcon = new ImageIcon(getClass().getResource(
+					"/com/vendhaq/layout/images/delete-icon.png"));
+			table_invoiceModel.setValueAt(imageIcon,
+					table_invoiceModel.getRowCount() - 1, delete_index);
+
+		}
+		updateTotalLabels();
+
+	}
+
+	/**
+	 * Update label values
+	 */
+	private void updateTotalLabels() {
+		int rows = table_invoiceModel.getRowCount();
+		float totalgrand = 0;
+		for (int i = 0; i < rows; i++) {
+			// grand total amount
+			float gamount = Float.parseFloat((String) table_invoiceModel
+					.getValueAt(i, mrp_index));
+			totalgrand += gamount;
+		}
+		label_subtotal_amount.setText(Util.toDecimalTwo(totalgrand)
+				+ RIGHT_OFFSET);
+		float tax_amount = Float.parseFloat(label_tax_amount.getText().trim());
+		float topay_amount = totalgrand - tax_amount;
+		label_total_amount.setText(Util.toDecimalTwo(topay_amount)
+				+ RIGHT_OFFSET);
+		label_topay_amount.setText(String.valueOf(Math.round(topay_amount))
+				+ RIGHT_OFFSET);
+	}
+
+	/**
+	 * Check product invoice table any existing invoice available.
+	 * 
+	 * @param product
+	 *            - product to check already exist.
+	 * @param barcode
+	 *            - barcode of already existing invoice.
+	 * @return true when invoice already exist otherwise return false.
+	 */
+	private int isProductAlreadyInTable(ResultSet products, String productname) {
+
+		int exist_rownum = -1;
+		int rows_num = table_invoiceModel.getRowCount();
+		int barcode_colnum = 1;
+		if (rows_num != 0) {
+			for (int i = 0; i < rows_num; i++) {
+				String row_productname = (String) table_invoiceModel
+						.getValueAt(i, productname_index);
+				if (row_productname.equalsIgnoreCase(productname)) {
+					System.out.println("row_productname: " + row_productname
+							+ " productname:" + productname
+							+ " exist row number: " + i);
+					exist_rownum = i;
+					return exist_rownum;
+				}
+			}
+		}
+		return exist_rownum;
+
+	}
+
+	private String[] calculateInvoiceData(String productname,
+			String rate_netprice, String quantity) {
+		String rowData[] = new String[table_invoiceModel.getColumnCount()];
+
+		rowData[qty_index] = quantity; // vtigerProducts.getBarcode();
+		previous_quantity = rowData[qty_index]; // Maintain prev quantity value
+		rowData[productname_index] = productname; // vtigerProducts.getProductname();
+		rowData[rate_index] = Util.toDecimalTwo(rate_netprice); // vtigerProducts.getUnitPrice();
+
+		float unit_price = Float.parseFloat(rowData[rate_index]);
+		float qty = Float.parseFloat(rowData[qty_index]);
+		float mrp_price = unit_price * qty;
+		rowData[mrp_index] = Util.toDecimalTwo(mrp_price); // vtigerProducts.getDiscount();
+
+		return rowData;
+	}
+
+	private class ImageRenderer extends DefaultTableCellRenderer {
+		JLabel lbl = new JLabel();
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			lbl.setIcon((ImageIcon) value);
+			return lbl;
+		}
+	}
+
+	private class TableMouseActionLister extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				JTable target = (JTable) e.getSource();
+				int row = target.getSelectedRow();
+				int column = target.getSelectedColumn();
+				// do some action if appropriate column
+				if (column == delete_index) {
+					System.out.println("row: " + row + " col:" + column);
+					table_invoiceModel.removeRow(row);
+					updateTotalLabels();
+				}
+			}
+		}
+	}
+
+	private class AddQuantity_ActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String quantity = spinner_quantity.getValue().toString().trim();
+			int selected_row = table_invoice.getSelectedRow();
+			if (selected_row != -1 && !quantity.equalsIgnoreCase("0")) {
+				String productname = table_invoiceModel
+						.getValueAt(selected_row, productname_index).toString()
+						.trim();
+				String rate = table_invoiceModel
+						.getValueAt(selected_row, rate_index).toString().trim();
+				System.out.println("selected row: " + selected_row
+						+ " productname: " + productname + " rate:" + rate
+						+ " qyt:" + quantity);
+
+				String rowData[] = calculateInvoiceData(productname, rate,
+						quantity);
+				if (rowData.length != 0) {
+					CELLUPDATE = true;
+					// Update the row net amount field & quatity field only
+					table_invoiceModel.setValueAt(rowData[qty_index],
+							selected_row, qty_index);
+					table_invoiceModel.setValueAt(rowData[mrp_index],
+							selected_row, mrp_index);
+
+				}
+				updateTotalLabels();
+				CELLUPDATE = false;
+
+			}
+
+		}
+
+	}
+	
+	
+	private class CustomerSearchListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String selected_contact = e.getActionCommand();
+			System.out.println("Selected contact: "+selected_contact);
+			/*read contact id from vtiger_contadetails*/
+			contactsRepo.readContact(selected_contact);
+		}
+		
 	}
 
 }
