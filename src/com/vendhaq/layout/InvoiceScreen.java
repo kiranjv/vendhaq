@@ -14,6 +14,8 @@ import java.awt.Rectangle;
 import java.awt.TexturePaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
@@ -22,6 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -117,7 +121,7 @@ public class InvoiceScreen extends JFrame {
 	private JTableHeader tabelheadder;
 	public static String[] producttable_headder = { "Qty", "Item Name",
 			"Rate ", "MRP", "Del" };
-	private int cell_width[] = { 20, 150, 30, 30, 10 };
+	private int cell_width[] = { 10, 150, 45, 50, 8 };
 	private JPanel panel_products;
 
 	private JLabel label_rightpanel_headder;
@@ -144,6 +148,10 @@ public class InvoiceScreen extends JFrame {
 	private String RIGHT_OFFSET = "  ";
 	private ContactsRepository contactsRepo = null;
 
+	private int itsRow;
+	private int itsColumn;
+
+	
 	public InvoiceScreen() {
 		images = loadImages();
 		Rightpanel_Handler = new RightPanelHandler();
@@ -454,7 +462,7 @@ public class InvoiceScreen extends JFrame {
 		if (label_customername_label == null) {
 			label_customername_label = new JLabel();
 			label_customername_label.setText("No Customer");
-			label_customername_label.setBounds(16, 441, 112, 28);
+			label_customername_label.setBounds(16, 400, 250, 100);
 		}
 		return label_customername_label;
 	}
@@ -494,11 +502,23 @@ public class InvoiceScreen extends JFrame {
 					"/com/vendhaq/layout/images/add-icon.png")));
 			button_addcustomer.setRolloverEnabled(false);
 			button_addcustomer.setBounds(160, 387, 26, 24);
+			button_addcustomer.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					SwingUtilities.invokeLater(new Runnable() {
+						public void run() {
+							AddCustomerView inst = new AddCustomerView();
+							inst.setLocationRelativeTo(null);
+							inst.setVisible(true);
+						}
+					});	
+				}
+			});
 		}
 		return button_addcustomer;
 	}
 
-	
 	private JScrollPane getTabel_invoices() {
 		if (tabel_invoices == null) {
 			tabel_invoices = new JScrollPane();
@@ -554,9 +574,20 @@ public class InvoiceScreen extends JFrame {
 			table_invoice.setBorder(new LineBorder(Color.LIGHT_GRAY));
 			table_invoice.setShowHorizontalLines(true);
 			table_invoice.setShowVerticalLines(false);
-			table_invoice.getColumnModel().getColumn(4)
+			
+			/*setting cell render models */
+			table_invoice.getColumnModel().getColumn(qty_index)
+			.setCellRenderer(new QtyImageRenderer());
+			table_invoice.getColumnModel().getColumn(rate_index)
+			.setCellRenderer(new RateImageRenderer());
+			table_invoice.getColumnModel().getColumn(delete_index)
 					.setCellRenderer(new ImageRenderer());
+			
 			table_invoice.addMouseListener(new TableMouseActionLister());
+			table_invoice
+					.addMouseMotionListener(new InvoiceTableMouseMaotionAdapter());
+			// table_invoice.setDefaultRenderer(Object.class, new
+			// InvoiceAttributiveCellRenderer());
 
 			// table_invoice.setBackground(new Color(151, 221, 251));
 			/** Initialize table headder panle elements */
@@ -580,6 +611,14 @@ public class InvoiceScreen extends JFrame {
 
 			// make table formatting
 			for (int i = 0; i < table_invoiceModel.getColumnCount(); i++) {
+				TableColumn column = table_invoice.getColumnModel()
+						.getColumn(i);
+
+				if (i == 3) {
+					DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+					centerRenderer.setHorizontalAlignment(JLabel.RIGHT);
+					column.setCellRenderer(centerRenderer);
+				}
 				formatTableCells(table_invoice.getColumnModel().getColumn(i),
 						cell_width[i]);
 			}
@@ -637,6 +676,7 @@ public class InvoiceScreen extends JFrame {
 			Field_SearchProduct = new JTextField();
 			Field_SearchProduct.setToolTipText("Search products");
 			Field_SearchProduct.setBounds(19, 10, 179, 27);
+			
 		}
 		return Field_SearchProduct;
 	}
@@ -680,7 +720,7 @@ public class InvoiceScreen extends JFrame {
 	private Component getProductSuggestField() {
 		Vector<String> productnames = Rightpanel_Handler.readProductNames();
 		field_productsearch = new JSuggestField(this, productnames);
-
+		field_productsearch.setToolTipText("Search product");
 		field_productsearch
 				.setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		field_productsearch.setBounds(19, 10, 179, 27);
@@ -701,18 +741,57 @@ public class InvoiceScreen extends JFrame {
 
 			}
 		});
+		
+		field_productsearch.addFocusListener(new FocusListener() {
+			String hint = "Search product";
+			@Override
+			public void focusLost(FocusEvent e) {
+				System.out.println("Focus gain");
+				 if(field_productsearch.getText().isEmpty()) {
+					 field_productsearch.setText(hint);
+			        }
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				System.out.println("Focus lost");
+				 field_productsearch.setText("");
+				/* if(field_productsearch.getText().isEmpty()) {
+					 field_productsearch.setText("");
+			        }*/
+			}
+		});
 		return field_productsearch;
 	}
 
 	private Component getContactSuggestField() {
-		contactsRepo  = new ContactsRepository();
+		contactsRepo = new ContactsRepository();
 		ResultSet AllContacts = contactsRepo.readAllContacts();
 		Vector<String> contactnames = contactsRepo
 				.readContactNames(AllContacts);
+		
 		field_customersearch = new JSuggestField(this, contactnames);
-		field_customersearch.setToolTipText("Customer search");
+		field_customersearch.setToolTipText("Search customer");
+		field_customersearch.setText("Search customer");
 		field_customersearch.setBounds(9, 384, 142, 31);
 		field_customersearch.addActionListener(new CustomerSearchListener());
+		field_customersearch.addFocusListener(new FocusListener() {
+			String hint = "Search customer";
+			@Override
+			public void focusLost(FocusEvent e) {
+				 if(field_customersearch.getText().isEmpty()) {
+					 field_customersearch.setText(hint);
+			        }
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				field_customersearch.setText("");
+				/* if(field_productsearch.getText().isEmpty()) {
+					 field_productsearch.setText("");
+			        }*/
+			}
+		});
 		return field_customersearch;
 	}
 
@@ -800,7 +879,7 @@ public class InvoiceScreen extends JFrame {
 			public void run() {
 				InvoiceScreen frame = new InvoiceScreen();
 				frame.setDefaultCloseOperation(InvoiceScreen.EXIT_ON_CLOSE);
-				frame.setTitle("Layout2");
+				frame.setTitle("Vendhaq Invoice");
 				frame.getContentPane().setPreferredSize(frame.getSize());
 				frame.pack();
 				frame.setLocationRelativeTo(null);
@@ -1064,7 +1143,7 @@ public class InvoiceScreen extends JFrame {
 
 			table_invoiceModel.addRow(rowData);
 			ImageIcon imageIcon = new ImageIcon(getClass().getResource(
-					"/com/vendhaq/layout/images/delete-icon.png"));
+					"/com/vendhaq/layout/images/button-icon-remove.png"));
 			table_invoiceModel.setValueAt(imageIcon,
 					table_invoiceModel.getRowCount() - 1, delete_index);
 
@@ -1143,17 +1222,123 @@ public class InvoiceScreen extends JFrame {
 		return rowData;
 	}
 
-	private class ImageRenderer extends DefaultTableCellRenderer {
+	private class ImageRenderer implements TableCellRenderer {
 		JLabel lbl = new JLabel();
 
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
-			lbl.setIcon((ImageIcon) value);
+			if (row == itsRow && column == itsColumn) {
+				String aStr = "Row " + row + "Column" + column + "Focus: "
+						+ hasFocus;
+				System.out.println(aStr);
+				ImageIcon imageIcon = new ImageIcon(
+						getClass()
+								.getResource(
+										"/com/vendhaq/layout/images/button-icon-remove-new.png"));
+				lbl.setIcon(imageIcon);
+			} else
+
+				lbl.setIcon((ImageIcon) value);
 			return lbl;
 		}
 	}
 
+	private class QtyImageRenderer implements TableCellRenderer {
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+String OFFSET = "   ";
+			JLabel lbl;
+			if (row == itsRow && column == itsColumn) {
+				String aStr = "Row " + row + "Column" + column + "Focus: "
+						+ hasFocus;
+				System.out.println(aStr);
+
+				final ImageIcon imageIcon = new ImageIcon(
+						getClass()
+								.getResource(
+										"/com/vendhaq/layout/images/qtyback_rolloverbutton.png"));
+				lbl = new JLabel() {
+					public void paintComponent(Graphics g) {
+						g.drawImage(imageIcon.getImage(), 0, 0, null);
+						super.paintComponent(g);
+					}
+				};
+
+				lbl.setText(OFFSET + value.toString());
+				// lbl.setIcon(imageIcon);
+
+			} else
+				lbl = new JLabel() {
+					final ImageIcon imageIcon = new ImageIcon(
+							getClass()
+									.getResource(
+											"/com/vendhaq/layout/images/qtyback_button.png"));
+
+					public void paintComponent(Graphics g) {
+						g.drawImage(imageIcon.getImage(), 0, 0, null);
+						super.paintComponent(g);
+					}
+				};
+
+			lbl.setText(OFFSET + value.toString());
+			// lbl.setIcon(imageIcon);
+			return lbl;
+		}
+	}
+
+	private class RateImageRenderer extends DefaultTableCellRenderer {
+
+		public void setHorizontalAlignment(int alignment) {
+			super.setHorizontalAlignment(JLabel.RIGHT);
+		}
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+
+			JLabel lbl;
+			String OFFSET = "   ";
+			
+			if (row == itsRow && column == itsColumn) {
+				String aStr = "Row " + row + "Column" + column + "Focus: "
+						+ hasFocus;
+				System.out.println(aStr);
+
+				final ImageIcon imageIcon = new ImageIcon(
+						getClass()
+								.getResource(
+										"/com/vendhaq/layout/images/rate_rollbackground.png"));
+				lbl = new JLabel() {
+					public void paintComponent(Graphics g) {
+						g.drawImage(imageIcon.getImage(), 0, 0, null);
+						super.paintComponent(g);
+					}
+				};
+
+				lbl.setText(OFFSET +"@"+ value.toString());
+				// lbl.setIcon(imageIcon);
+
+			} else
+				lbl = new JLabel() {
+					final ImageIcon imageIcon = new ImageIcon(
+							getClass()
+									.getResource(
+											"/com/vendhaq/layout/images/rate_background.png"));
+
+					public void paintComponent(Graphics g) {
+						g.drawImage(imageIcon.getImage(), 0, 0, null);
+						super.paintComponent(g);
+					}
+				};
+
+			lbl.setText(OFFSET+"@"+ value.toString());
+			// lbl.setIcon(imageIcon);
+			return lbl;
+		}
+	}
+	
 	private class TableMouseActionLister extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
@@ -1205,18 +1390,76 @@ public class InvoiceScreen extends JFrame {
 		}
 
 	}
-	
-	
+
 	private class CustomerSearchListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
 			String selected_contact = e.getActionCommand();
-			System.out.println("Selected contact: "+selected_contact);
-			/*read contact id from vtiger_contadetails*/
-			contactsRepo.readContact(selected_contact);
+			if (selected_contact.isEmpty()
+					|| selected_contact.equalsIgnoreCase("")) {
+				System.out.println("Select contact");
+				return;
+			}
+			System.out.println("Selected contact: " + selected_contact);
+			/* read contact id from vtiger_contadetails */
+			ResultSet ContactResult = contactsRepo
+					.readContact(selected_contact);
+
+			try {
+				String firstname = ContactResult.getString("firstname");
+				String lastname = ContactResult.getString("lastname");
+				String mobileno = ContactResult.getString("mobile");
+				String contactid = ContactResult.getString("contactid");
+				/* Read contact royalty point */
+				String sql = "select * from vtiger_contactroyality where contactid = "
+						+ contactid;
+				System.out.println("Contact royality query: " + sql);
+				ResultSet royality_result = contactsRepo.executeQuery(sql);
+				String earnedpoint = royality_result.getString("royalitycount");
+				String sText = "<html>" + (firstname + lastname) + " <br/>"
+						+ mobileno
+						+ " <br/> Earned points &nbsp&nbsp&nbsp&nbsp&nbsp "
+						+ earnedpoint + "</html>";
+				System.out.println("label text: " + sText);
+				label_customername_label.setText(sText);
+				ImageIcon imageIcon = new ImageIcon(getClass().getResource(
+						"/com/vendhaq/layout/images/delete-icon.png"));
+				label_customername_label.setIcon(imageIcon);
+
+				label_customername_label.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int clicks = e.getClickCount();
+						if (clicks == 2) {
+							label_customername_label.setIcon(null);
+							label_customername_label.setText("No Customer");
+							label_customername_label.removeMouseListener(this);
+						}
+					}
+				});
+
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 		}
-		
+
 	}
+
+	class InvoiceTableMouseMaotionAdapter extends MouseMotionAdapter // extendsMouseAdapter
+	{
+
+		public void mouseMoved(MouseEvent e) {
+			JTable aTable = (JTable) e.getSource();
+			itsRow = aTable.rowAtPoint(e.getPoint());
+			itsColumn = aTable.columnAtPoint(e.getPoint());
+			aTable.repaint();
+		}
+	}
+
+	
 
 }

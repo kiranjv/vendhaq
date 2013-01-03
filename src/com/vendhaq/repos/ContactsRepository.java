@@ -30,6 +30,16 @@ public class ContactsRepository {
 		return executeQuery(sql);
 	}
 
+	public ResultSet readContact(String contactname) {
+		String[] fl_name = parseContact(contactname);
+		if (fl_name.length == 1) {
+			return readContact("firstname", fl_name[0], true);
+		} else {
+			return readContact(fl_name[0], fl_name[1]);
+		}
+
+	}
+
 	public ResultSet readContact(String firstname, String lastname) {
 		String sql = "select * from " + TABLE_NAME + " where firstname = '"
 				+ firstname + "' and lastname = '" + lastname + "'";
@@ -69,12 +79,12 @@ public class ContactsRepository {
 
 	}
 
-	
 	public Vector<String> readContactNames(ResultSet result) {
 		Vector<String> names = new Vector<String>();
 		try {
-			while(result.next()) {
-				String name = result.getString("firstname") +" "+ result.getString("lastname");
+			while (result.next()) {
+				String name = result.getString("firstname") + " "
+						+ result.getString("lastname");
 				names.add(name);
 			}
 		} catch (SQLException e) {
@@ -82,21 +92,23 @@ public class ContactsRepository {
 			e.printStackTrace();
 		}
 		return names;
-		
+
 	}
-	
-	public void readContact(String contactname) {
+
+	public String[] parseContact(String contactname) {
+
 		StringTokenizer tokens = new StringTokenizer(contactname, " ");
+		String fl_names[] = new String[tokens.countTokens()];
+		int i = 0;
 		while (tokens.hasMoreElements()) {
 			String value = tokens.nextElement().toString();
-			System.out.println("Value: "+value);
+			fl_names[i++] = value;
+			System.out.println("Value: " + value);
 		}
-		/*String firstname = tokens.nextToken().toString();
-		String lastname = tokens.nextToken().toString();
-		System.out.println("Firstname: "+firstname+" Lastname: "+lastname);*/
+		return fl_names;
 	}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/jSuggestField.jar"/>
+	<classpathentry kind="lib" path="lib/TableLayout.jar"/>
+	<classpathentry kind="lib" path="lib/miglayout-3.5.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

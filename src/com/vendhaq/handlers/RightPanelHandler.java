@@ -57,7 +57,7 @@ public class RightPanelHandler {
 				 @Override
 		            public void paintComponent(Graphics g)
 		            {
-		                g.setColor(Color.LIGHT_GRAY );
+		                g.setColor(new Color(244, 244, 246) );
 		                g.fillRect(0, 0, getSize().width, getSize().height);
 		                super.paintComponent(g);
 		            }
