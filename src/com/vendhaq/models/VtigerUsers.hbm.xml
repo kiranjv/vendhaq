@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerUsers" table="vtiger_users">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="2000000000" />
+        </property>
+        <property name="userPassword" type="string">
+            <column name="user_password" length="2000000000" />
+        </property>
+        <property name="userHash" type="string">
+            <column name="user_hash" length="2000000000" />
+        </property>
+        <property name="calColor" type="string">
+            <column name="cal_color" length="2000000000" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="2000000000" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="2000000000" />
+        </property>
+        <property name="reportsToId" type="string">
+            <column name="reports_to_id" length="2000000000" />
+        </property>
+        <property name="isAdmin" type="string">
+            <column name="is_admin" length="2000000000" />
+        </property>
+        <property name="currencyId" type="int">
+            <column name="currency_id" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2000000000" />
+        </property>
+        <property name="dateEntered" type="string">
+            <column name="date_entered" length="2000000000" not-null="true" />
+        </property>
+        <property name="dateModified" type="string">
+            <column name="date_modified" length="2000000000" not-null="true" />
+        </property>
+        <property name="modifiedUserId" type="string">
+            <column name="modified_user_id" length="2000000000" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="2000000000" />
+        </property>
+        <property name="department" type="string">
+            <column name="department" length="2000000000" />
+        </property>
+        <property name="phoneHome" type="string">
+            <column name="phone_home" length="2000000000" />
+        </property>
+        <property name="phoneMobile" type="string">
+            <column name="phone_mobile" length="2000000000" />
+        </property>
+        <property name="phoneWork" type="string">
+            <column name="phone_work" length="2000000000" />
+        </property>
+        <property name="phoneOther" type="string">
+            <column name="phone_other" length="2000000000" />
+        </property>
+        <property name="phoneFax" type="string">
+            <column name="phone_fax" length="2000000000" />
+        </property>
+        <property name="email1" type="string">
+            <column name="email1" length="2000000000" />
+        </property>
+        <property name="email2" type="string">
+            <column name="email2" length="2000000000" />
+        </property>
+        <property name="yahooId" type="string">
+            <column name="yahoo_id" length="2000000000" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="2000000000" />
+        </property>
+        <property name="signature" type="string">
+            <column name="signature" length="2000000000" />
+        </property>
+        <property name="addressStreet" type="string">
+            <column name="address_street" length="2000000000" />
+        </property>
+        <property name="addressCity" type="string">
+            <column name="address_city" length="2000000000" />
+        </property>
+        <property name="addressState" type="string">
+            <column name="address_state" length="2000000000" />
+        </property>
+        <property name="addressCountry" type="string">
+            <column name="address_country" length="2000000000" />
+        </property>
+        <property name="addressPostalcode" type="string">
+            <column name="address_postalcode" length="2000000000" />
+        </property>
+        <property name="userPreferences" type="string">
+            <column name="user_preferences" length="2000000000" />
+        </property>
+        <property name="tz" type="string">
+            <column name="tz" length="2000000000" />
+        </property>
+        <property name="holidays" type="string">
+            <column name="holidays" length="2000000000" />
+        </property>
+        <property name="namedays" type="string">
+            <column name="namedays" length="2000000000" />
+        </property>
+        <property name="workdays" type="string">
+            <column name="workdays" length="2000000000" />
+        </property>
+        <property name="weekstart" type="java.lang.Integer">
+            <column name="weekstart" />
+        </property>
+        <property name="dateFormat" type="string">
+            <column name="date_format" length="2000000000" />
+        </property>
+        <property name="hourFormat" type="string">
+            <column name="hour_format" length="2000000000" />
+        </property>
+        <property name="startHour" type="string">
+            <column name="start_hour" length="2000000000" />
+        </property>
+        <property name="endHour" type="string">
+            <column name="end_hour" length="2000000000" />
+        </property>
+        <property name="activityView" type="string">
+            <column name="activity_view" length="2000000000" />
+        </property>
+        <property name="leadView" type="string">
+            <column name="lead_view" length="2000000000" />
+        </property>
+        <property name="imagename" type="string">
+            <column name="imagename" length="2000000000" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="deleted" not-null="true" />
+        </property>
+        <property name="confirmPassword" type="string">
+            <column name="confirm_password" length="2000000000" />
+        </property>
+        <property name="internalMailer" type="string">
+            <column name="internal_mailer" length="2000000000" not-null="true" />
+        </property>
+        <property name="reminderInterval" type="string">
+            <column name="reminder_interval" length="2000000000" />
+        </property>
+        <property name="reminderNextTime" type="string">
+            <column name="reminder_next_time" length="2000000000" />
+        </property>
+        <property name="cryptType" type="string">
+            <column name="crypt_type" length="2000000000" not-null="true" />
+        </property>
+        <property name="accesskey" type="string">
+            <column name="accesskey" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInvoicecf" table="vtiger_invoicecf">
+        <id name="invoiceid" type="int">
+            <column name="invoiceid" />
+            <generator class="assigned" />
+        </id>
+        <property name="cf637" type="string">
+            <column name="cf_637" length="2000000000" />
+        </property>
+        <property name="cf638" type="string">
+            <column name="cf_638" length="2000000000" />
+        </property>
+        <property name="cf639" type="string">
+            <column name="cf_639" length="2000000000" />
+        </property>
+        <property name="cf640" type="string">
+            <column name="cf_640" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

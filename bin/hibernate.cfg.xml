@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="sangrahpossession">
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:database/sample.db</property>
+        <property name="hibernate.dialect">com.sqlite.dialect.SQLiteDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+       
+        <mapping resource="com/vendhaq/models/VtigerProductcf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCashreceiptgrouprel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerBarcodecf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCustomerportalPrefs.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUser2mergefields.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContactsubdetails.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUserModulePreferences.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCashreceipt.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCrmentityrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCustomerportalTabs.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoicebillads.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCustomerportalFields.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCrmentitySeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCustomerdetails.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCrmentity.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerBarcode.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerWarehouse.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContpotentialrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContactaddress.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorysubproductrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerWarehousestoreInventorytransaction.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContacttype.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerBarcodegrouprel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContactdetails.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUsers2group.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerReportsGroup.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerWarehouseStock.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerAccount.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorytransaction.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoiceRecurringInfo.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerWarehousecf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoicestatushistory.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUsertype.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoicestatus.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCategorygrouprel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoicestatusSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerReports.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCategory.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventoryTandcSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUsers.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerDebtortransaction.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerDateFormat.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoicecf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCashreceiptcf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProducts.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventoryproductrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorytaxinfoSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorynotification.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCustomview.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoice.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventoryshippingrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUsersSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCrmentitynotesrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCashreturndetails.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerAccountdepstatus.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerDateFormatSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProducttaxrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUser2role.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerUsersLastImport.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventoryTandc.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorytaxinfo.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerAccountbillads.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerWarehousegrouprel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProductcurrencyrel.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProductcategorySeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProductcategory.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerCategorycf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContractPriority.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerProductcollaterals.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerContactscf.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInventorynotificationSeq.hbm.xml" />
+        <mapping resource="com/vendhaq/models/SalereturnProductdetail.hbm.xml" />
+        <mapping resource="com/vendhaq/models/VtigerInvoiceshipads.hbm.xml" />
+        
+         <!-- Manaully added modules -->
+        <mapping resource="com/vendhaq/models/VtigerModentitynum.hbm.xml"/>
+        <mapping resource="com/vendhaq/models/VtigerModentityNumSeq.hbm.xml"/>
+        <mapping resource="com/vendhaq/models/VtigerRoyalityAmount.hbm.xml"/> 
+        <mapping resource="com/vendhaq/models/VtigerSalesman.hbm.xml"/>
+        <mapping resource="com/vendhaq/models/VtigerRoyality.hbm.xml"/>
+        <mapping resource="com/vendhaq/models/VtigerContactroyality.hbm.xml"/>
+        
+    </session-factory>
+</hibernate-configuration>

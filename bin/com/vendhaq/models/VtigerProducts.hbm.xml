@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerProducts" table="vtiger_products">
+        <id name="productid" type="int">
+            <column name="productid" />
+            <generator class="assigned" />
+        </id>
+        <property name="productNo" type="string">
+            <column name="product_no" length="2000000000" not-null="true" />
+        </property>
+        <property name="productname" type="string">
+            <column name="productname" length="2000000000" not-null="true" />
+        </property>
+        <property name="barcode" type="string">
+            <column name="barcode" length="2000000000" unique="true" />
+        </property>
+        <property name="warehouseId" type="string">
+            <column name="warehouse_id" length="2000000000" />
+        </property>
+        <property name="productcode" type="string">
+            <column name="productcode" length="2000000000" />
+        </property>
+        <property name="productcategory" type="string">
+            <column name="productcategory" length="2000000000" />
+        </property>
+        <property name="manufacturer" type="string">
+            <column name="manufacturer" length="2000000000" />
+        </property>
+        <property name="qtyPerUnit" type="string">
+            <column name="qty_per_unit" length="2000000000" />
+        </property>
+        <property name="cost" type="string">
+            <column name="cost" length="2000000000" />
+        </property>
+        <property name="unitPrice" type="string">
+            <column name="unit_price" length="2000000000" />
+        </property>
+        <property name="discount" type="string">
+            <column name="discount" length="2000000000" />
+        </property>
+        <property name="netprice" type="string">
+            <column name="netprice" length="2000000000" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="service" type="string">
+            <column name="service" length="2000000000" />
+        </property>
+        <property name="frequency" type="string">
+            <column name="frequency" length="2000000000" />
+        </property>
+        <property name="weight" type="string">
+            <column name="weight" length="2000000000" />
+        </property>
+        <property name="packSize" type="java.lang.Integer">
+            <column name="pack_size" />
+        </property>
+        <property name="salesStartDate" type="string">
+            <column name="sales_start_date" length="2000000000" />
+        </property>
+        <property name="salesEndDate" type="string">
+            <column name="sales_end_date" length="2000000000" />
+        </property>
+        <property name="startDate" type="string">
+            <column name="start_date" length="2000000000" />
+        </property>
+        <property name="expiryDate" type="string">
+            <column name="expiry_date" length="2000000000" />
+        </property>
+        <property name="costFactor" type="java.lang.Integer">
+            <column name="cost_factor" />
+        </property>
+        <property name="commissionrate" type="string">
+            <column name="commissionrate" length="2000000000" />
+        </property>
+        <property name="commissionmethod" type="string">
+            <column name="commissionmethod" length="2000000000" />
+        </property>
+        <property name="discontinued" type="int">
+            <column name="discontinued" not-null="true" />
+        </property>
+        <property name="usageunit" type="string">
+            <column name="usageunit" length="2000000000" />
+        </property>
+        <property name="handler" type="java.lang.Integer">
+            <column name="handler" />
+        </property>
+        <property name="reorderlevel" type="java.lang.Integer">
+            <column name="reorderlevel" />
+        </property>
+        <property name="website" type="string">
+            <column name="website" length="2000000000" />
+        </property>
+        <property name="taxclass" type="string">
+            <column name="taxclass" length="2000000000" />
+        </property>
+        <property name="mfrPartNo" type="string">
+            <column name="mfr_part_no" length="2000000000" />
+        </property>
+        <property name="vendorPartNo" type="string">
+            <column name="vendor_part_no" length="2000000000" />
+        </property>
+        <property name="serialno" type="string">
+            <column name="serialno" length="2000000000" />
+        </property>
+        <property name="qtyinstock" type="string">
+            <column name="qtyinstock" length="2000000000" />
+        </property>
+        <property name="productsheet" type="string">
+            <column name="productsheet" length="2000000000" />
+        </property>
+        <property name="qtyindemand" type="java.lang.Integer">
+            <column name="qtyindemand" />
+        </property>
+        <property name="glacct" type="string">
+            <column name="glacct" length="2000000000" />
+        </property>
+        <property name="vendorId" type="java.lang.Integer">
+            <column name="vendor_id" />
+        </property>
+        <property name="imagename" type="string">
+            <column name="imagename" length="2000000000" />
+        </property>
+        <property name="currencyId" type="int">
+            <column name="currency_id" not-null="true" />
+        </property>
+        <property name="productMarkup" type="string">
+            <column name="product_markup" length="2000000000" />
+        </property>
+        <property name="productWithcform" type="string">
+            <column name="product_withcform" length="2000000000" />
+        </property>
+        <property name="productWithoutcform" type="string">
+            <column name="product_withoutcform" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

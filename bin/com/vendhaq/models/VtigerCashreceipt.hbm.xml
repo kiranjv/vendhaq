@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerCashreceipt" table="vtiger_cashreceipt">
+        <composite-id name="id" class="com.vendhaq.models.VtigerCashreceiptId">
+            <key-property name="cashreceiptid" type="int">
+                <column name="cashreceiptid" />
+            </key-property>
+            <key-property name="invoiceid" type="int">
+                <column name="invoiceid" />
+            </key-property>
+            <key-property name="customerid" type="int">
+                <column name="customerid" />
+            </key-property>
+            <key-property name="grandtotal" type="string">
+                <column name="grandtotal" length="2000000000" />
+            </key-property>
+            <key-property name="creditamount" type="string">
+                <column name="creditamount" length="2000000000" />
+            </key-property>
+            <key-property name="paidamount" type="string">
+                <column name="paidamount" length="2000000000" />
+            </key-property>
+            <key-property name="pendingamount" type="string">
+                <column name="pendingamount" length="2000000000" />
+            </key-property>
+            <key-property name="crediteddate" type="string">
+                <column name="crediteddate" length="2000000000" />
+            </key-property>
+            <key-property name="lastpaiddate" type="string">
+                <column name="lastpaiddate" length="2000000000" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

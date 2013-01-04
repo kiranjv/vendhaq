@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.SalereturnProductdetail" table="salereturn_productdetail">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="salesreturnId" type="int">
+            <column name="salesreturn_id" not-null="true" />
+        </property>
+        <property name="productid" type="int">
+            <column name="productid" not-null="true" />
+        </property>
+        <property name="invoiceQty" type="string">
+            <column name="invoice_qty" length="2000000000" not-null="true" />
+        </property>
+        <property name="unitprice" type="string">
+            <column name="unitprice" length="2000000000" not-null="true" />
+        </property>
+        <property name="discount" type="string">
+            <column name="discount" length="2000000000" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="saleretQty" type="string">
+            <column name="saleret_qty" length="2000000000" not-null="true" />
+        </property>
+        <property name="saleretPrice" type="string">
+            <column name="saleret_price" length="2000000000" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

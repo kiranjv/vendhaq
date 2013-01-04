@@ -18,12 +18,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import com.vendhaq.handlers.DBLocalHelper;
+import com.vendhaq.models.VtigerContactaddress;
+import com.vendhaq.models.VtigerContactdetails;
+import com.vendhaq.models.VtigerContactsubdetails;
 import com.vendhaq.repos.ContactsRepository;
+import com.vendhaq.repos.HCrmEntityRepository;
 import com.vendhaq.repos.LocalDbConfiguration;
 
 /**
@@ -363,6 +369,8 @@ public class AddCustomerView extends javax.swing.JFrame implements
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					saveContact();
+					JOptionPane.showMessageDialog(null,
+							"Contact added sucessfully.");
 					disposeScreen();
 				}
 			});
@@ -432,26 +440,54 @@ public class AddCustomerView extends javax.swing.JFrame implements
 	}
 
 	protected void saveContact() {
-		/*read data from the */
+		/* read data from the */
 		HashMap<String, String> contactdetails = readContactData();
-		storeContactDetails(contactdetails);
-		storeContactAddress(contactdetails);
-		
-		
-		
-
+		HCrmEntityRepository crmrepo = new HCrmEntityRepository();
+		int crmid = crmrepo.generateCrmId("CON");
+		System.out.println("Generated crm_id: " + crmid);
+		storeContactDetails(contactdetails, crmid);
+		storeContactAddress(contactdetails, crmid);
 	}
 
-	private void storeContactAddress(HashMap<String, String> contactdetails) {
-		// TODO Auto-generated method stub
-		
+	private void storeContactAddress(HashMap<String, String> contactdetails,
+			int contactid) {
+		// vtiger contact address
+		VtigerContactaddress address = new VtigerContactaddress(contactid,
+				contactdetails.get("city"), contactdetails.get("address"),
+				contactdetails.get("country"), contactdetails.get("country"),
+				contactdetails.get("state"), contactdetails.get("postcode"),
+				contactdetails.get("state"), contactdetails.get("city"),
+				contactdetails.get("state"), contactdetails.get("state"),
+				contactdetails.get("state"), contactdetails.get("postcode"));
+		DBLocalHelper.saveRecord("VtigerContactaddress", address);
+
+		// contacts sub details
+		VtigerContactsubdetails subdetails = new VtigerContactsubdetails();
+		subdetails.setContactsubscriptionid(contactid);
+		subdetails.setBirthday(contactdetails.get("birthday"));
+		DBLocalHelper.saveRecord("VtigerContactsubdetails", subdetails);
+	}
+
+	private void storeContactDetails(HashMap<String, String> contactdetails,
+			int contactid) {
+		String contactNo = "CON" + contactid + "_"
+				+ contactdetails.get("customercode");
+		String firstname = contactdetails.get("firstname");
+		String lastname = contactdetails.get("lastname");
+		String mobile = contactdetails.get("mobile");
+		String email = contactdetails.get("email");
+		String usertype = contactdetails.get("sex");
+		VtigerContactdetails contact = new VtigerContactdetails(contactid,
+				contactNo, firstname, lastname, mobile, email, usertype);
+		DBLocalHelper.saveRecord("VtigerContactdetails", contact);
+
 	}
 
 	private void storeContactDetails(HashMap<String, String> contactdetails) {
-		/*store in vtiger_contactdetails*/
+		/* store in vtiger_contactdetails */
 		String query = "select max(contactid) as maxid from vtiger_contactdetails";
-		System.out.println("query:"+query);
-		Connection conn= LocalDbConfiguration.getConnection();
+		System.out.println("query:" + query);
+		Connection conn = LocalDbConfiguration.getConnection();
 		Statement stmt = null;
 		int contactid = 0;
 		try {
@@ -459,27 +495,37 @@ public class AddCustomerView extends javax.swing.JFrame implements
 			ResultSet result = stmt.executeQuery(query);
 			while (result.next()) {
 				contactid = result.getInt("maxid");
-				System.out.println("max contactid:"+contactid);
+				System.out.println("max contactid:" + contactid);
 				contactid++;
-				System.out.println("next contactid:"+contactid);
-				
+				System.out.println("next contactid:" + contactid);
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		query = "INSERT INTO vtiger_contactdetails (contactid,contact_no,accountid,salutation,firstname,lastname,email,phone,mobile,title,department,fax,reportsto,training,usertype,contacttype,otheremail,yahooid,donotcall,emailoptout,imagename,reference,notify_owner) VALUES" +
-		"("+contactid+",'conne12',0,'--None--','" +contactdetails.get("firstname")+ "','"+contactdetails.get("lastname")+"','"+contactdetails.get("email")+"','','" +contactdetails.get("mobile")+ "','','','',0,NULL,NULL,NULL,NULL,'',0,0,'',0,0)";
-		System.out.println("query:"+query);
+
+		query = "INSERT INTO vtiger_contactdetails (contactid,contact_no,accountid,salutation,firstname,lastname,email,phone,mobile,title,department,fax,reportsto,training,usertype,contacttype,otheremail,yahooid,donotcall,emailoptout,imagename,reference,notify_owner) VALUES"
+				+ "("
+				+ contactid
+				+ ",'conne12',0,'--None--','"
+				+ contactdetails.get("firstname")
+				+ "','"
+				+ contactdetails.get("lastname")
+				+ "','"
+				+ contactdetails.get("email")
+				+ "','','"
+				+ contactdetails.get("mobile")
+				+ "','','','',0,NULL,NULL,NULL,NULL,'',0,0,'',0,0)";
+		System.out.println("query:" + query);
 		try {
 			boolean status = stmt.execute(query);
-			System.out.println("Status: "+status);
+			System.out.println("Status: " + status);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
+
 	}
 
 	private HashMap<String, String> readContactData() {

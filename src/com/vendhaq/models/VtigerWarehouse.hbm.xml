@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerWarehouse" table="vtiger_warehouse">
+        <id name="warehouseid" type="int">
+            <column name="warehouseid" />
+            <generator class="assigned" />
+        </id>
+        <property name="warehouseName" type="string">
+            <column name="warehouse_name" length="2000000000" />
+        </property>
+        <property name="address1" type="string">
+            <column name="address1" length="2000000000" />
+        </property>
+        <property name="address2" type="string">
+            <column name="address2" length="2000000000" />
+        </property>
+        <property name="street" type="string">
+            <column name="street" length="2000000000" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="2000000000" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="2000000000" />
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="2000000000" />
+        </property>
+        <property name="contactPersonName" type="string">
+            <column name="contact_person_name" length="2000000000" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="2000000000" />
+        </property>
+        <property name="landline" type="string">
+            <column name="landline" length="2000000000" />
+        </property>
+        <property name="identifier" type="string">
+            <column name="identifier" length="2000000000" />
+        </property>
+        <property name="linkto" type="string">
+            <column name="linkto" length="2000000000" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

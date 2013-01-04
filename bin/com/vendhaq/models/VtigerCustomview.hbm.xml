@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerCustomview" table="vtiger_customview">
+        <id name="cvid" type="int">
+            <column name="cvid" />
+            <generator class="assigned" />
+        </id>
+        <property name="viewname" type="string">
+            <column name="viewname" length="2000000000" not-null="true" />
+        </property>
+        <property name="setdefault" type="java.lang.Integer">
+            <column name="setdefault" />
+        </property>
+        <property name="setmetrics" type="java.lang.Integer">
+            <column name="setmetrics" />
+        </property>
+        <property name="entitytype" type="string">
+            <column name="entitytype" length="2000000000" not-null="true" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        <property name="userid" type="java.lang.Integer">
+            <column name="userid" />
+        </property>
+    </class>
+</hibernate-mapping>

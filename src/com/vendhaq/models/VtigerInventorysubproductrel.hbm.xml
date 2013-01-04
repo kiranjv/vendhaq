@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInventorysubproductrel" table="vtiger_inventorysubproductrel">
+        <composite-id name="id" class="com.vendhaq.models.VtigerInventorysubproductrelId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="sequenceNo" type="int">
+                <column name="sequence_no" />
+            </key-property>
+            <key-property name="productid" type="int">
+                <column name="productid" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

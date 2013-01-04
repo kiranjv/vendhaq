@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerUserModulePreferences" table="vtiger_user_module_preferences">
+        <composite-id name="id" class="com.vendhaq.models.VtigerUserModulePreferencesId">
+            <key-property name="userid" type="int">
+                <column name="userid" />
+            </key-property>
+            <key-property name="tabid" type="int">
+                <column name="tabid" />
+            </key-property>
+        </composite-id>
+        <property name="defaultCvid" type="int">
+            <column name="default_cvid" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

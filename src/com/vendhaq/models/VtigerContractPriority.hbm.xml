@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerContractPriority" table="vtiger_contract_priority">
+        <id name="contractPriorityid" type="int">
+            <column name="contract_priorityid" />
+            <generator class="assigned" />
+        </id>
+        <property name="contractPriority" type="string">
+            <column name="contract_priority" length="2000000000" not-null="true" />
+        </property>
+        <property name="presence" type="int">
+            <column name="presence" not-null="true" />
+        </property>
+        <property name="picklistValueid" type="int">
+            <column name="picklist_valueid" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

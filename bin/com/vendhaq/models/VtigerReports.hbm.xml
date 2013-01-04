@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerReports" table="vtiger_reports">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="reportCode" type="string">
+            <column name="report_code" length="2000000000" not-null="true" />
+        </property>
+        <property name="reportName" type="string">
+            <column name="report_name" length="2000000000" not-null="true" />
+        </property>
+        <property name="modName" type="string">
+            <column name="mod_name" length="2000000000" not-null="true" />
+        </property>
+        <property name="isDeleted" type="string">
+            <column name="is_deleted" length="2000000000" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

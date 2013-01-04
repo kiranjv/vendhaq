@@ -3,12 +3,42 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.dyno.visual.swing.VS_LIBRARY/layoutext"/>
+	<classpathentry kind="lib" path="lib/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/appFramework-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.3.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.3.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.3.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.3.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itext-xtra-5.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.3.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.3.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/jnlp.jar"/>
+	<classpathentry kind="lib" path="lib/jSuggestField.jar"/>
+	<classpathentry kind="lib" path="lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/looks-2.1.4.jar"/>
+	<classpathentry kind="lib" path="lib/miglayout-3.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="lib/RelativeLayout.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2-sources.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/jSuggestField.jar"/>
 	<classpathentry kind="lib" path="lib/TableLayout.jar"/>
-	<classpathentry kind="lib" path="lib/miglayout-3.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

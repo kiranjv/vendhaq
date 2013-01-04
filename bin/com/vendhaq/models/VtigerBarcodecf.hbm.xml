@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerBarcodecf" table="vtiger_barcodecf">
+        <id name="barcodeid" type="int">
+            <column name="barcodeid" />
+            <generator class="assigned" />
+        </id>
+        <property name="cf829" type="string">
+            <column name="cf_829" length="2000000000" />
+        </property>
+        <property name="cf830" type="string">
+            <column name="cf_830" length="2000000000" />
+        </property>
+        <property name="cf831" type="string">
+            <column name="cf_831" length="2000000000" />
+        </property>
+        <property name="cf832" type="string">
+            <column name="cf_832" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerContactdetails" table="vtiger_contactdetails">
+        <id name="contactid" type="int">
+            <column name="contactid" />
+            <generator class="assigned" />
+        </id>
+        <property name="contactNo" type="string">
+            <column name="contact_no" length="2000000000" not-null="true" />
+        </property>
+        <property name="accountid" type="java.lang.Integer">
+            <column name="accountid" />
+        </property>
+        <property name="salutation" type="string">
+            <column name="salutation" length="2000000000" />
+        </property>
+        <property name="firstname" type="string">
+            <column name="firstname" length="2000000000" />
+        </property>
+        <property name="lastname" type="string">
+            <column name="lastname" length="2000000000" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="2000000000" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="2000000000" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="2000000000" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="2000000000" />
+        </property>
+        <property name="department" type="string">
+            <column name="department" length="2000000000" />
+        </property>
+        <property name="fax" type="string">
+            <column name="fax" length="2000000000" />
+        </property>
+        <property name="reportsto" type="string">
+            <column name="reportsto" length="2000000000" />
+        </property>
+        <property name="training" type="string">
+            <column name="training" length="2000000000" />
+        </property>
+        <property name="usertype" type="string">
+            <column name="usertype" length="2000000000" />
+        </property>
+        <property name="contacttype" type="string">
+            <column name="contacttype" length="2000000000" />
+        </property>
+        <property name="otheremail" type="string">
+            <column name="otheremail" length="2000000000" />
+        </property>
+        <property name="yahooid" type="string">
+            <column name="yahooid" length="2000000000" />
+        </property>
+        <property name="donotcall" type="string">
+            <column name="donotcall" length="2000000000" />
+        </property>
+        <property name="emailoptout" type="string">
+            <column name="emailoptout" length="2000000000" />
+        </property>
+        <property name="imagename" type="string">
+            <column name="imagename" length="2000000000" />
+        </property>
+        <property name="reference" type="string">
+            <column name="reference" length="2000000000" />
+        </property>
+        <property name="notifyOwner" type="string">
+            <column name="notify_owner" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

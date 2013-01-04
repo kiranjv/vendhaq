@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 13, 2012 3:37:46 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerRoyality" table="vtiger_royality">
+        <id name="royalityid" type="int">
+            <column name="royalityid" />
+            <generator class="assigned" />
+        </id>
+        <property name="royalityCount" type="int">
+            <column name="royality_count" not-null="true" />
+        </property>
+        <property name="royalityamount" type="string">
+            <column name="royalityamount" not-null="true" />
+        </property>
+        <property name="fromDate" type="date">
+            <column name="from_date" length="0" />
+        </property>
+        <property name="toDate" type="date">
+            <column name="to_date" length="0" />
+        </property>
+        <property name="deleted" type="short">
+            <column name="deleted" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -19,6 +19,8 @@ import javax.swing.border.LineBorder;
 
 import sun.font.Font2DHandle;
 
+import com.vendhaq.models.VtigerCategory;
+import com.vendhaq.models.VtigerProducts;
 import com.vendhaq.repos.LocalDbConfiguration;
 
 public class RightPanelHandler {
@@ -36,10 +38,10 @@ public class RightPanelHandler {
 	public List<JButton> readCategeroys() {
 		List<JButton> buttons = null;
 		try {
-			String category_sql = "select * from vtiger_category";
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(category_sql);
-			buttons = prepareJButtons(result, "categoryname");
+			List<VtigerCategory> categorys = (List<VtigerCategory>) DBLocalHelper
+					.readRecords("VtigerCategory");
+
+			buttons = prepareCategoryJButtons(categorys);
 			return buttons;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,19 +50,19 @@ public class RightPanelHandler {
 
 	}
 
-	private List<JButton> prepareJButtons(ResultSet result, String columnName)
+	private List<JButton> prepareCategoryJButtons(List<VtigerCategory> categorys)
 			throws SQLException {
 		List<JButton> buttons = new ArrayList<JButton>();
-		while (result.next()) {
-			String name = result.getString(columnName);
-			JButton button = new JButton(name){
-				 @Override
-		            public void paintComponent(Graphics g)
-		            {
-		                g.setColor(new Color(244, 244, 246) );
-		                g.fillRect(0, 0, getSize().width, getSize().height);
-		                super.paintComponent(g);
-		            }
+		for (int i = 0; i < categorys.size(); i++) {
+			VtigerCategory cate = categorys.get(i);
+			String name = cate.getId().getCategoryname();
+			JButton button = new JButton(name) {
+				@Override
+				public void paintComponent(Graphics g) {
+					g.setColor(new Color(244, 244, 246));
+					g.fillRect(0, 0, getSize().width, getSize().height);
+					super.paintComponent(g);
+				}
 			};
 			button.setContentAreaFilled(false);
 			button.setBorder(new LineBorder(Color.GRAY, 1, false));
@@ -68,17 +70,18 @@ public class RightPanelHandler {
 			button.setFont(new Font("Arial", Font.BOLD, 12));
 			buttons.add(button);
 		}
+
 		return buttons;
 	}
 
 	public List<JButton> readProducts(String categoryname) {
 		List<JButton> buttons = null;
 		try {
-			String category_sql = "select * from vtiger_products where productcategory = '"
-					+ categoryname + "'";
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(category_sql);
-			buttons = prepareJButtons(result, "productname");
+			List<VtigerProducts> products = (List<VtigerProducts>) DBLocalHelper
+					.readRecord("VtigerProducts", "productcategory",
+							categoryname);
+
+			buttons = prepareProductJButtons(products);
 			return buttons;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,13 +90,34 @@ public class RightPanelHandler {
 
 	}
 
+	private List<JButton> prepareProductJButtons(List<VtigerProducts> products) {
+		List<JButton> buttons = new ArrayList<JButton>();
+		for (int i = 0; i < products.size(); i++) {
+			VtigerProducts prod = products.get(i);
+			String name = prod.getProductname();
+			JButton button = new JButton(name) {
+				@Override
+				public void paintComponent(Graphics g) {
+					g.setColor(new Color(244, 244, 246));
+					g.fillRect(0, 0, getSize().width, getSize().height);
+					super.paintComponent(g);
+				}
+			};
+			button.setContentAreaFilled(false);
+			button.setBorder(new LineBorder(Color.GRAY, 1, false));
+			button.setPreferredSize(new Dimension(100, 30));
+			button.setFont(new Font("Arial", Font.BOLD, 12));
+			buttons.add(button);
+		}
+
+		return buttons;
+	}
+
 	public List<JButton> readAllProducts() {
 		List<JButton> buttons = null;
 		try {
-			String category_sql = "select * from vtiger_products";
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(category_sql);
-			buttons = prepareJButtons(result, "productname");
+			List<VtigerProducts> products = (List<VtigerProducts>) DBLocalHelper.readRecords("VtigerProducts");
+			buttons = prepareProductJButtons(products);
 			return buttons;
 		} catch (Exception e) {
 			e.printStackTrace();

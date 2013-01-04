@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerProducttaxrel" table="vtiger_producttaxrel">
+        <composite-id name="id" class="com.vendhaq.models.VtigerProducttaxrelId">
+            <key-property name="productid" type="int">
+                <column name="productid" />
+            </key-property>
+            <key-property name="taxid" type="int">
+                <column name="taxid" />
+            </key-property>
+            <key-property name="taxpercentage" type="string">
+                <column name="taxpercentage" length="2000000000" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

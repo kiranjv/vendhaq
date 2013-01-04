@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerCategory" table="vtiger_category">
+        <composite-id name="id" class="com.vendhaq.models.VtigerCategoryId">
+            <key-property name="categoryid" type="int">
+                <column name="categoryid" />
+            </key-property>
+            <key-property name="categoryname" type="string">
+                <column name="categoryname" length="2000000000" />
+            </key-property>
+        </composite-id>
+        <property name="taxtype" type="string">
+            <column name="taxtype" length="2000000000" not-null="true" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="size" type="string">
+            <column name="size" length="2000000000" />
+        </property>
+        <property name="color" type="string">
+            <column name="color" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

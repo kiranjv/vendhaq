@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerCrmentity" table="vtiger_crmentity">
+        <id name="crmid" type="int">
+            <column name="crmid" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="int">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="smcreatorid" type="int">
+            <column name="smcreatorid" not-null="true" />
+        </property>
+        <property name="smownerid" type="int">
+            <column name="smownerid" not-null="true" />
+        </property>
+        <property name="modifiedby" type="int">
+            <column name="modifiedby" not-null="true" />
+        </property>
+        <property name="setype" type="string">
+            <column name="setype" length="2000000000" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2000000000" />
+        </property>
+        <property name="createdtime" type="string">
+            <column name="createdtime" length="2000000000" not-null="true" />
+        </property>
+        <property name="modifiedtime" type="string">
+            <column name="modifiedtime" length="2000000000" not-null="true" />
+        </property>
+        <property name="viewedtime" type="string">
+            <column name="viewedtime" length="2000000000" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="2000000000" />
+        </property>
+        <property name="presence" type="java.lang.Integer">
+            <column name="presence" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="deleted" not-null="true" />
+        </property>
+        <one-to-one name="vtigerAccount" class="com.vendhaq.models.VtigerAccount"></one-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerContactsubdetails" table="vtiger_contactsubdetails">
+        <id name="contactsubscriptionid" type="int">
+            <column name="contactsubscriptionid" />
+            <generator class="assigned" />
+        </id>
+        <property name="homephone" type="string">
+            <column name="homephone" length="2000000000" />
+        </property>
+        <property name="otherphone" type="string">
+            <column name="otherphone" length="2000000000" />
+        </property>
+        <property name="assistant" type="string">
+            <column name="assistant" length="2000000000" />
+        </property>
+        <property name="assistantphone" type="string">
+            <column name="assistantphone" length="2000000000" />
+        </property>
+        <property name="birthday" type="string">
+            <column name="birthday" length="2000000000" />
+        </property>
+        <property name="laststayintouchrequest" type="java.lang.Integer">
+            <column name="laststayintouchrequest" />
+        </property>
+        <property name="laststayintouchsavedate" type="java.lang.Integer">
+            <column name="laststayintouchsavedate" />
+        </property>
+        <property name="leadsource" type="string">
+            <column name="leadsource" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

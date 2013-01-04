@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInvoicestatushistory" table="vtiger_invoicestatushistory">
+        <id name="historyid" type="int">
+            <column name="historyid" />
+            <generator class="assigned" />
+        </id>
+        <property name="invoiceid" type="int">
+            <column name="invoiceid" not-null="true" />
+        </property>
+        <property name="accountname" type="string">
+            <column name="accountname" length="2000000000" />
+        </property>
+        <property name="total" type="string">
+            <column name="total" length="2000000000" />
+        </property>
+        <property name="invoicestatus" type="string">
+            <column name="invoicestatus" length="2000000000" />
+        </property>
+        <property name="lastmodified" type="string">
+            <column name="lastmodified" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

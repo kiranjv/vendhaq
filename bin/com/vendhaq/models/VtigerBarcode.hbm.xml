@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerBarcode" table="vtiger_barcode">
+        <composite-id name="id" class="com.vendhaq.models.VtigerBarcodeId">
+            <key-property name="barcodeid" type="int">
+                <column name="barcodeid" />
+            </key-property>
+            <key-property name="barcode" type="string">
+                <column name="barcode" length="2000000000" />
+            </key-property>
+        </composite-id>
+        <property name="companyname" type="string">
+            <column name="companyname" length="2000000000" />
+        </property>
+        <property name="productName" type="string">
+            <column name="product_name" length="2000000000" />
+        </property>
+        <property name="price" type="string">
+            <column name="price" length="2000000000" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="service" type="string">
+            <column name="service" length="2000000000" />
+        </property>
+        <property name="netprice" type="string">
+            <column name="netprice" length="2000000000" />
+        </property>
+        <property name="filename" type="string">
+            <column name="filename" length="2000000000" not-null="true" />
+        </property>
+        <property name="category" type="int">
+            <column name="category" not-null="true" />
+        </property>
+        <property name="size" type="string">
+            <column name="size" length="2000000000" />
+        </property>
+        <property name="barcodeColor" type="string">
+            <column name="barcode_color" length="2000000000" />
+        </property>
+        <property name="barcodeCost" type="string">
+            <column name="barcode_cost" length="2000000000" />
+        </property>
+        <property name="markUp" type="string">
+            <column name="mark_up" length="2000000000" />
+        </property>
+        <property name="barcodeWithcform" type="string">
+            <column name="barcode_withcform" length="2000000000" />
+        </property>
+        <property name="barcodeWithoutcform" type="string">
+            <column name="barcode_withoutcform" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

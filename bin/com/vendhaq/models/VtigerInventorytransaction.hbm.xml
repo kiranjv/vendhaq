@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInventorytransaction" table="vtiger_inventorytransaction">
+        <id name="transactionId" type="int">
+            <column name="transaction_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="date" type="string">
+            <column name="date" length="2000000000" />
+        </property>
+        <property name="barcode" type="string">
+            <column name="barcode" length="2000000000" />
+        </property>
+        <property name="productid" type="java.lang.Integer">
+            <column name="productid" />
+        </property>
+        <property name="productName" type="string">
+            <column name="product_name" length="2000000000" />
+        </property>
+        <property name="openingStockQty" type="java.lang.Integer">
+            <column name="opening_stock_qty" />
+        </property>
+        <property name="openingStockWsQty" type="int">
+            <column name="opening_stock_WS_qty" not-null="true" />
+        </property>
+        <property name="openingCost" type="string">
+            <column name="opening_cost" length="2000000000" />
+        </property>
+        <property name="markupPer" type="string">
+            <column name="markup_per" length="2000000000" />
+        </property>
+        <property name="markupAmt" type="string">
+            <column name="markup_amt" length="2000000000" />
+        </property>
+        <property name="poid" type="java.lang.Integer">
+            <column name="poid" />
+        </property>
+        <property name="purchaseQty" type="java.lang.Integer">
+            <column name="purchase_qty" />
+        </property>
+        <property name="purchaseCost" type="string">
+            <column name="purchase_cost" length="2000000000" />
+        </property>
+        <property name="cstwithcformPer" type="string">
+            <column name="cstwithcform_per" length="2000000000" />
+        </property>
+        <property name="cstwithcformAmt" type="string">
+            <column name="cstwithcform_amt" length="2000000000" />
+        </property>
+        <property name="cstwithoutcformPer" type="string">
+            <column name="cstwithoutcform_per" length="2000000000" />
+        </property>
+        <property name="cstwithoutcformAmt" type="string">
+            <column name="cstwithoutcform_amt" length="2000000000" />
+        </property>
+        <property name="invId" type="java.lang.Integer">
+            <column name="inv_id" />
+        </property>
+        <property name="invoiceNo" type="string">
+            <column name="invoice_no" length="2000000000" />
+        </property>
+        <property name="salesQty" type="java.lang.Integer">
+            <column name="sales_qty" />
+        </property>
+        <property name="storeId" type="java.lang.Integer">
+            <column name="store_id" />
+        </property>
+        <property name="salesCost" type="string">
+            <column name="sales_cost" length="2000000000" />
+        </property>
+        <property name="purchaseReturnQty" type="java.lang.Integer">
+            <column name="purchase_return_qty" />
+        </property>
+        <property name="purchaseReturnCost" type="string">
+            <column name="purchase_return_cost" length="2000000000" />
+        </property>
+        <property name="salesretId" type="java.lang.Integer">
+            <column name="salesret_id" />
+        </property>
+        <property name="salesReturnQty" type="java.lang.Integer">
+            <column name="sales_return_qty" />
+        </property>
+        <property name="salesReturnCost" type="string">
+            <column name="sales_return_cost" length="2000000000" />
+        </property>
+        <property name="adjustmentQty" type="java.lang.Integer">
+            <column name="adjustment_qty" />
+        </property>
+        <property name="adjustmentCost" type="string">
+            <column name="adjustment_cost" length="2000000000" />
+        </property>
+        <property name="challanId" type="java.lang.Integer">
+            <column name="challan_id" />
+        </property>
+        <property name="challanNo" type="string">
+            <column name="challan_no" length="2000000000" />
+        </property>
+        <property name="challanQtySent" type="int">
+            <column name="challan_qty_sent" not-null="true" />
+        </property>
+        <property name="challanQtyReceive" type="int">
+            <column name="challan_qty_receive" not-null="true" />
+        </property>
+        <property name="closingStock" type="java.lang.Integer">
+            <column name="closing_stock" />
+        </property>
+        <property name="finalStock" type="java.lang.Integer">
+            <column name="final_stock" />
+        </property>
+        <property name="discount" type="string">
+            <column name="discount" length="2000000000" />
+        </property>
+        <property name="unitprice" type="string">
+            <column name="unitprice" length="2000000000" />
+        </property>
+        <property name="closingStockWsQty" type="int">
+            <column name="closing_stock_WS_qty" not-null="true" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="vendorId" type="java.lang.Integer">
+            <column name="vendor_id" />
+        </property>
+    </class>
+</hibernate-mapping>

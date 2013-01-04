@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInvoice" table="vtiger_invoice">
+        <id name="invoiceid" type="int">
+            <column name="invoiceid" />
+            <generator class="assigned" />
+        </id>
+        <property name="subject" type="string">
+            <column name="subject" length="2000000000" />
+        </property>
+        <property name="salesorderid" type="java.lang.Integer">
+            <column name="salesorderid" />
+        </property>
+        <property name="customerno" type="string">
+            <column name="customerno" length="2000000000" />
+        </property>
+        <property name="contactid" type="java.lang.Integer">
+            <column name="contactid" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="2000000000" />
+        </property>
+        <property name="invoicedate" type="string">
+            <column name="invoicedate" length="2000000000" />
+        </property>
+        <property name="duedate" type="string">
+            <column name="duedate" length="2000000000" />
+        </property>
+        <property name="invoiceterms" type="string">
+            <column name="invoiceterms" length="2000000000" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="2000000000" />
+        </property>
+        <property name="adjustment" type="string">
+            <column name="adjustment" length="2000000000" />
+        </property>
+        <property name="salescommission" type="string">
+            <column name="salescommission" length="2000000000" />
+        </property>
+        <property name="exciseduty" type="string">
+            <column name="exciseduty" length="2000000000" />
+        </property>
+        <property name="subtotal" type="string">
+            <column name="subtotal" length="2000000000" />
+        </property>
+        <property name="total" type="string">
+            <column name="total" length="2000000000" />
+        </property>
+        <property name="taxtype" type="string">
+            <column name="taxtype" length="2000000000" />
+        </property>
+        <property name="discountPercent" type="string">
+            <column name="discount_percent" length="2000000000" />
+        </property>
+        <property name="discountAmount" type="string">
+            <column name="discount_amount" length="2000000000" />
+        </property>
+        <property name="SHAmount" type="string">
+            <column name="s_h_amount" length="2000000000" />
+        </property>
+        <property name="shipping" type="string">
+            <column name="shipping" length="2000000000" />
+        </property>
+        <property name="accountid" type="java.lang.Integer">
+            <column name="accountid" />
+        </property>
+        <property name="termsConditions" type="string">
+            <column name="terms_conditions" length="2000000000" />
+        </property>
+        <property name="purchaseorder" type="string">
+            <column name="purchaseorder" length="2000000000" />
+        </property>
+        <property name="invoicestatus" type="string">
+            <column name="invoicestatus" length="2000000000" />
+        </property>
+        <property name="invoiceNo" type="string">
+            <column name="invoice_no" length="2000000000" />
+        </property>
+        <property name="currencyId" type="int">
+            <column name="currency_id" not-null="true" />
+        </property>
+        <property name="conversionRate" type="string">
+            <column name="conversion_rate" length="2000000000" not-null="true" />
+        </property>
+        <property name="customername" type="string">
+            <column name="customername" length="2000000000" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="2000000000" />
+        </property>
+        <property name="salesorderno" type="string">
+            <column name="salesorderno" length="2000000000" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="2000000000" />
+        </property>
+        <property name="cash" type="string">
+            <column name="cash" length="2000000000" />
+        </property>
+        <property name="credit" type="string">
+            <column name="credit" length="2000000000" />
+        </property>
+        <property name="card" type="string">
+            <column name="card" length="2000000000" />
+        </property>
+        <property name="bankname" type="string">
+            <column name="bankname" length="2000000000" />
+        </property>
+        <property name="chqDate" type="string">
+            <column name="chq_date" length="2000000000" />
+        </property>
+        <property name="chequeNo" type="string">
+            <column name="cheque_no" length="2000000000" />
+        </property>
+        <property name="chequeAmt" type="string">
+            <column name="cheque_amt" length="2000000000" />
+        </property>
+        <property name="storeid" type="java.lang.Integer">
+            <column name="storeid" />
+        </property>
+    </class>
+</hibernate-mapping>

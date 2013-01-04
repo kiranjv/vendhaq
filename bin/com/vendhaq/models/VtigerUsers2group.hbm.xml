@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerUsers2group" table="vtiger_users2group">
+        <composite-id name="id" class="com.vendhaq.models.VtigerUsers2groupId">
+            <key-property name="groupid" type="int">
+                <column name="groupid" />
+            </key-property>
+            <key-property name="userid" type="int">
+                <column name="userid" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

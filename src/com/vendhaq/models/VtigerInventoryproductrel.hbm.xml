@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInventoryproductrel" table="vtiger_inventoryproductrel">
+        <id name="lineitemId" type="int">
+            <column name="lineitem_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="id" type="java.lang.Integer">
+            <column name="id" />
+        </property>
+        <property name="productid" type="java.lang.Integer">
+            <column name="productid" />
+        </property>
+        <property name="sequenceNo" type="java.lang.Integer">
+            <column name="sequence_no" />
+        </property>
+        <property name="qtyinstock" type="java.lang.Integer">
+            <column name="qtyinstock" />
+        </property>
+        <property name="quantity" type="java.lang.Integer">
+            <column name="quantity" />
+        </property>
+        <property name="listprice" type="string">
+            <column name="listprice" length="2000000000" />
+        </property>
+        <property name="discountPercent" type="string">
+            <column name="discount_percent" length="2000000000" />
+        </property>
+        <property name="discountAmount" type="string">
+            <column name="discount_amount" length="2000000000" />
+        </property>
+        <property name="comment" type="string">
+            <column name="comment" length="2000000000" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2000000000" />
+        </property>
+        <property name="incrementondel" type="int">
+            <column name="incrementondel" not-null="true" />
+        </property>
+        <property name="tax1" type="string">
+            <column name="tax1" length="2000000000" />
+        </property>
+        <property name="tax2" type="string">
+            <column name="tax2" length="2000000000" />
+        </property>
+        <property name="tax3" type="string">
+            <column name="tax3" length="2000000000" />
+        </property>
+        <property name="vat" type="string">
+            <column name="vat" length="2000000000" />
+        </property>
+        <property name="taxamount" type="string">
+            <column name="taxamount" length="2000000000" />
+        </property>
+        <property name="withcform" type="string">
+            <column name="withcform" length="2000000000" />
+        </property>
+        <property name="cstwithcformPer" type="string">
+            <column name="cstwithcform_per" length="2000000000" />
+        </property>
+        <property name="cstwithcformAmt" type="string">
+            <column name="cstwithcform_amt" length="2000000000" />
+        </property>
+        <property name="cstwithoutcformPer" type="string">
+            <column name="cstwithoutcform_per" length="2000000000" />
+        </property>
+        <property name="cstwithoutcformAmt" type="string">
+            <column name="cstwithoutcform_amt" length="2000000000" />
+        </property>
+        <property name="service" type="string">
+            <column name="service" length="2000000000" />
+        </property>
+        <property name="netprice" type="string">
+            <column name="netprice" length="2000000000" />
+        </property>
+        <property name="tax4" type="string">
+            <column name="tax4" length="2000000000" />
+        </property>
+        <property name="tax5" type="string">
+            <column name="tax5" length="2000000000" />
+        </property>
+        <property name="tax6" type="string">
+            <column name="tax6" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

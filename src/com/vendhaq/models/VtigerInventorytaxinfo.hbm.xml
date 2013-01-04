@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInventorytaxinfo" table="vtiger_inventorytaxinfo">
+        <id name="taxid" type="int">
+            <column name="taxid" />
+            <generator class="assigned" />
+        </id>
+        <property name="taxname" type="string">
+            <column name="taxname" length="2000000000" />
+        </property>
+        <property name="taxlabel" type="string">
+            <column name="taxlabel" length="2000000000" />
+        </property>
+        <property name="percentage" type="string">
+            <column name="percentage" length="2000000000" />
+        </property>
+        <property name="deleted" type="java.lang.Integer">
+            <column name="deleted" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerProductcollaterals" table="vtiger_productcollaterals">
+        <id name="productid" type="int">
+            <column name="productid" />
+            <generator class="assigned" />
+        </id>
+        <property name="dateEntered" type="string">
+            <column name="date_entered" length="2000000000" not-null="true" />
+        </property>
+        <property name="data" type="string">
+            <column name="data" length="2000000000" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2000000000" />
+        </property>
+        <property name="filename" type="string">
+            <column name="filename" length="2000000000" />
+        </property>
+        <property name="filesize" type="string">
+            <column name="filesize" length="2000000000" not-null="true" />
+        </property>
+        <property name="filetype" type="string">
+            <column name="filetype" length="2000000000" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

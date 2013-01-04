@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInventorynotification" table="vtiger_inventorynotification">
+        <id name="notificationid" type="int">
+            <column name="notificationid" />
+            <generator class="assigned" />
+        </id>
+        <property name="notificationname" type="string">
+            <column name="notificationname" length="2000000000" />
+        </property>
+        <property name="notificationsubject" type="string">
+            <column name="notificationsubject" length="2000000000" />
+        </property>
+        <property name="notificationbody" type="string">
+            <column name="notificationbody" length="2000000000" />
+        </property>
+        <property name="label" type="string">
+            <column name="label" length="2000000000" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

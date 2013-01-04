@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerCustomerdetails" table="vtiger_customerdetails">
+        <id name="customerid" type="int">
+            <column name="customerid" />
+            <generator class="assigned" />
+        </id>
+        <property name="portal" type="string">
+            <column name="portal" length="2000000000" />
+        </property>
+        <property name="supportStartDate" type="string">
+            <column name="support_start_date" length="2000000000" />
+        </property>
+        <property name="supportEndDate" type="string">
+            <column name="support_end_date" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

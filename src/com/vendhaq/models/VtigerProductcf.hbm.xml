@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerProductcf" table="vtiger_productcf">
+        <id name="productid" type="int">
+            <column name="productid" />
+            <generator class="assigned" />
+        </id>
+        <property name="cf833" type="string">
+            <column name="cf_833" length="2000000000" />
+        </property>
+        <property name="cf834" type="string">
+            <column name="cf_834" length="2000000000" />
+        </property>
+        <property name="cf835" type="string">
+            <column name="cf_835" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

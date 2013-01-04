@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class LocalDbConfiguration {
 
 	private static Connection connection = null;
+	private static SessionFactory session_factory = null;
 	
+
 	private LocalDbConfiguration() {
 		System.out.println("Creating database connection");
 		connection = createDBConnection();
@@ -26,7 +30,13 @@ public class LocalDbConfiguration {
 		return connection;
 	}
 
-	
+	public static SessionFactory  getLocalDBSessionFactory()
+	{
+		if(session_factory == null) {
+			session_factory = new  Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		}
+		return session_factory ;
+	}
 	
 	private Connection createDBConnection() {
 		String jdbcDriver;

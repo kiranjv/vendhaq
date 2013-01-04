@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerContactaddress" table="vtiger_contactaddress">
+        <id name="contactaddressid" type="int">
+            <column name="contactaddressid" />
+            <generator class="assigned" />
+        </id>
+        <property name="mailingcity" type="string">
+            <column name="mailingcity" length="2000000000" />
+        </property>
+        <property name="mailingstreet" type="string">
+            <column name="mailingstreet" length="2000000000" />
+        </property>
+        <property name="mailingcountry" type="string">
+            <column name="mailingcountry" length="2000000000" />
+        </property>
+        <property name="othercountry" type="string">
+            <column name="othercountry" length="2000000000" />
+        </property>
+        <property name="mailingstate" type="string">
+            <column name="mailingstate" length="2000000000" />
+        </property>
+        <property name="mailingpobox" type="string">
+            <column name="mailingpobox" length="2000000000" />
+        </property>
+        <property name="othercity" type="string">
+            <column name="othercity" length="2000000000" />
+        </property>
+        <property name="otherstate" type="string">
+            <column name="otherstate" length="2000000000" />
+        </property>
+        <property name="mailingzip" type="string">
+            <column name="mailingzip" length="2000000000" />
+        </property>
+        <property name="otherzip" type="string">
+            <column name="otherzip" length="2000000000" />
+        </property>
+        <property name="otherstreet" type="string">
+            <column name="otherstreet" length="2000000000" />
+        </property>
+        <property name="otherpobox" type="string">
+            <column name="otherpobox" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>

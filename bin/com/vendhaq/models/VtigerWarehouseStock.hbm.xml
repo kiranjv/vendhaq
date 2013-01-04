@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerWarehouseStock" table="vtiger_warehouse_stock">
+        <id name="warehousestockid" type="int">
+            <column name="warehousestockid" />
+            <generator class="assigned" />
+        </id>
+        <property name="warehouseid" type="java.lang.Integer">
+            <column name="warehouseid" />
+        </property>
+        <property name="productid" type="java.lang.Integer">
+            <column name="productid" />
+        </property>
+        <property name="qty" type="java.lang.Integer">
+            <column name="qty" />
+        </property>
+        <property name="reorder" type="java.lang.Integer">
+            <column name="reorder" />
+        </property>
+    </class>
+</hibernate-mapping>

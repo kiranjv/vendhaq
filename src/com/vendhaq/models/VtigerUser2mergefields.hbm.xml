@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerUser2mergefields" table="vtiger_user2mergefields">
+        <composite-id name="id" class="com.vendhaq.models.VtigerUser2mergefieldsId">
+            <key-property name="userid" type="java.lang.Integer">
+                <column name="userid" />
+            </key-property>
+            <key-property name="tabid" type="java.lang.Integer">
+                <column name="tabid" />
+            </key-property>
+            <key-property name="fieldid" type="java.lang.Integer">
+                <column name="fieldid" />
+            </key-property>
+            <key-property name="visible" type="java.lang.Integer">
+                <column name="visible" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

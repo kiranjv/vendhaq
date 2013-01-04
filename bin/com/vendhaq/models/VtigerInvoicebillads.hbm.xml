@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2012 10:58:25 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.vendhaq.models.VtigerInvoicebillads" table="vtiger_invoicebillads">
+        <id name="invoicebilladdressid" type="int">
+            <column name="invoicebilladdressid" />
+            <generator class="assigned" />
+        </id>
+        <property name="billCity" type="string">
+            <column name="bill_city" length="2000000000" />
+        </property>
+        <property name="billCode" type="string">
+            <column name="bill_code" length="2000000000" />
+        </property>
+        <property name="billCountry" type="string">
+            <column name="bill_country" length="2000000000" />
+        </property>
+        <property name="billState" type="string">
+            <column name="bill_state" length="2000000000" />
+        </property>
+        <property name="billStreet" type="string">
+            <column name="bill_street" length="2000000000" />
+        </property>
+        <property name="billPobox" type="string">
+            <column name="bill_pobox" length="2000000000" />
+        </property>
+    </class>
+</hibernate-mapping>
