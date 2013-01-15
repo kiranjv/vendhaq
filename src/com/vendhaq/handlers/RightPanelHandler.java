@@ -28,7 +28,7 @@ public class RightPanelHandler {
 	Connection connection = null;
 
 	public RightPanelHandler() {
-		connection = getConnection();
+	//	connection = getConnection();
 	}
 
 	private Connection getConnection() {
@@ -129,14 +129,13 @@ public class RightPanelHandler {
 	public Vector<String> readProductNames() {
 		Vector<String> names = null;
 		try {
-			String category_sql = "select * from vtiger_products";
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(category_sql);
+			
+			List<VtigerProducts> products = DBLocalHelper.readRecords("VtigerProducts");
 			names = new Vector<String>();
-			while (result.next()) {
-				names.add(result.getString("productname"));
-
+			for (int i = 0; i < products.size(); i++) {
+				names.add(products.get(i).getProductname());
 			}
+			
 			return names;
 		} catch (Exception e) {
 			e.printStackTrace();

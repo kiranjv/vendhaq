@@ -24,7 +24,6 @@
 	<classpathentry kind="lib" path="lib/itextpdf-5.3.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/itextpdf-5.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/jnlp.jar"/>
-	<classpathentry kind="lib" path="lib/jSuggestField.jar"/>
 	<classpathentry kind="lib" path="lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.4.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16-sources.jar"/>
@@ -40,5 +39,6 @@
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/TableLayout.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/jSuggestField.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

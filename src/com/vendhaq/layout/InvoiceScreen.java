@@ -41,6 +41,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
@@ -74,8 +75,8 @@ import com.vendhaq.utils.Util;
 public class InvoiceScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel RightPanel;
-	private JPanel LeftPanel;
+	private BackgroundImageComponent RightPanel;
+	private BackgroundImageComponent LeftPanel;
 	private BufferedImage[] images;
 	private JTextField Field_SearchProduct;
 	private JSuggestField field_customersearch;
@@ -116,10 +117,6 @@ public class InvoiceScreen extends JFrame {
 	private JLabel label_number_products;
 	private JLabel label_forwardaction;
 	private JLabel label_backwordaction;
-	private static final String PREFERRED_LOOK_AND_FEEL = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-	// private static final String PREFERRED_LOOK_AND_FEEL =
-	// "javax.swing.plaf.nimbus.NimbusLookAndFeel";
-
 	// private static final String PREFERRED_LOOK_AND_FEEL =
 	// "javax.swing.plaf.synth.SynthLookAndFeel";
 	private String[] product_list = {};
@@ -152,25 +149,31 @@ public class InvoiceScreen extends JFrame {
 	private HashMap<String, String> royality_hashmap;
 	private HashMap<String, VtigerProducts> products_hashmap;
 	protected float invoice_royaltydiscount = 0;
+	private JLabel label_discount_lable;
+	private JLabel label_discount_amount;
+	private static final String PREFERRED_LOOK_AND_FEEL = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 
 	public InvoiceScreen() {
 		images = loadImages();
 		Rightpanel_Handler = new RightPanelHandler();
 		products_hashmap = new HashMap<String, VtigerProducts>();
 		// new BackgroundImageComponent(images[0]);
-		initComponents();
-	}
-
-	private void initComponents() {
 		try {
-			setLayout(null);
-			add(getLeftPanel());
-			add(getRightPanel());
-			setSize(986, 561);
-			setResizable(false);
-		} catch (Exception e) {
+			initComponents();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void initComponents() throws SQLException {
+		setFont(new Font("Dialog", Font.PLAIN, 12));
+		setResizable(false);
+		setForeground(Color.black);
+		setLayout(null);
+		add(getLeftPanel());
+		add(getRightPanel());
+		setSize(980, 558);
 	}
 
 	private JLabel getLabel_backwordaction() {
@@ -358,7 +361,8 @@ public class InvoiceScreen extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					discountAction();
+					// discountAction();
+					newDiscountAction();
 				}
 			});
 		}
@@ -456,9 +460,19 @@ public class InvoiceScreen extends JFrame {
 			label_topay_label = new JLabel();
 			label_topay_label.setText("TO PAY");
 			label_topay_label.setFont(new Font("Arial", Font.BOLD, 12));
-			label_topay_label.setBounds(204, 468, 83, 18);
+			label_topay_label.setBounds(210, 468, 83, 18);
 		}
 		return label_topay_label;
+	}
+
+	private JLabel getLabel_total_label() {
+		if (Label_total_label == null) {
+			Label_total_label = new JLabel();
+			Label_total_label.setText("TOTAL");
+			Label_total_label.setFont(new Font("Arial", Font.BOLD, 12));
+			Label_total_label.setBounds(210, 435, 55, 18);
+		}
+		return Label_total_label;
 	}
 
 	private JLabel getLabel_total_amount() {
@@ -472,21 +486,58 @@ public class InvoiceScreen extends JFrame {
 		return label_total_amount;
 	}
 
+	private JLabel getLabel_tax_label() {
+		if (label_tax_label == null) {
+			label_tax_label = new JLabel();
+			label_tax_label.setText("Tax");
+			label_tax_label.setBounds(210, 411, 75, 18);
+		}
+		return label_tax_label;
+	}
+
 	private JLabel getLabel_tax_amount() {
 		if (label_tax_amount == null) {
 			label_tax_amount = new JLabel("00.00" + RIGHT_OFFSET,
 					SwingConstants.RIGHT);
 			label_tax_amount.setVerticalAlignment(SwingConstants.CENTER);
-			label_tax_amount.setBounds(323, 396, 95, 26);
+			label_tax_amount.setBounds(323, 406, 95, 26);
 		}
 		return label_tax_amount;
+	}
+
+	private JLabel getLabel_discount_amount() {
+		if (label_discount_amount == null) {
+			label_discount_amount = new JLabel("00.00" + RIGHT_OFFSET,
+					SwingConstants.RIGHT);
+			label_discount_amount.setBounds(323, 380, 94, 25);
+			label_discount_amount.setVerticalAlignment(SwingConstants.CENTER);
+		}
+		return label_discount_amount;
+	}
+
+	private JLabel getLabel_discount_lable() {
+		if (label_discount_lable == null) {
+			label_discount_lable = new JLabel();
+			label_discount_lable.setText("Discount");
+			label_discount_lable.setBounds(210, 380, 74, 17);
+		}
+		return label_discount_lable;
+	}
+
+	private JLabel getSubtotalLabel() {
+		if (label_subtotal_label == null) {
+			label_subtotal_label = new JLabel();
+			label_subtotal_label.setText("Subtotal");
+			label_subtotal_label.setBounds(210, 360, 74, 17);
+		}
+		return label_subtotal_label;
 	}
 
 	private JLabel getLabel_subtotal_amount() {
 		if (label_subtotal_amount == null) {
 			label_subtotal_amount = new JLabel("00.00" + RIGHT_OFFSET,
 					SwingConstants.RIGHT);
-			label_subtotal_amount.setBounds(326, 366, 94, 25);
+			label_subtotal_amount.setBounds(323, 358, 94, 25);
 			label_subtotal_amount.setVerticalAlignment(SwingConstants.CENTER);
 		}
 		return label_subtotal_amount;
@@ -496,37 +547,9 @@ public class InvoiceScreen extends JFrame {
 		if (label_customername_label == null) {
 			label_customername_label = new JLabel();
 			label_customername_label.setText("No Customer");
-			label_customername_label.setBounds(16, 400, 250, 100);
+			label_customername_label.setBounds(16, 400, 176, 100);
 		}
 		return label_customername_label;
-	}
-
-	private JLabel getLabel_total_label() {
-		if (Label_total_label == null) {
-			Label_total_label = new JLabel();
-			Label_total_label.setText("TOTAL");
-			Label_total_label.setFont(new Font("Arial", Font.BOLD, 12));
-			Label_total_label.setBounds(209, 430, 55, 18);
-		}
-		return Label_total_label;
-	}
-
-	private JLabel getLabel_tax_label() {
-		if (label_tax_label == null) {
-			label_tax_label = new JLabel();
-			label_tax_label.setText("Tax");
-			label_tax_label.setBounds(210, 402, 75, 18);
-		}
-		return label_tax_label;
-	}
-
-	private JLabel getSubtotalLabel() {
-		if (label_subtotal_label == null) {
-			label_subtotal_label = new JLabel();
-			label_subtotal_label.setText("Subtotal");
-			label_subtotal_label.setBounds(212, 369, 74, 17);
-		}
-		return label_subtotal_label;
 	}
 
 	private JButton getButton_addcustomer() {
@@ -836,15 +859,19 @@ public class InvoiceScreen extends JFrame {
 		return field_customersearch;
 	}
 
-	private JPanel getLeftPanel() {
+	private BackgroundImageComponent getLeftPanel() {
 		if (LeftPanel == null) {
 			LeftPanel = new BackgroundImageComponent(images[0]);
-			// LeftPanel.setBorder(new LineBorder(Color.black, 1, false));
+			LeftPanel.setFocusable(true);
+			LeftPanel.setEnabled(true);
+			LeftPanel.setVisible(true);
+			LeftPanel.setDoubleBuffered(true);
+			LeftPanel.setVerifyInputWhenFocusTarget(true);
+			LeftPanel.setRequestFocusEnabled(true);
+			LeftPanel.setOpaque(true);
 			LeftPanel.setBounds(6, 6, 441, 547);
 			LeftPanel.setLayout(null);
-			// LeftPanel.add(getField_SearchProduct());
 			LeftPanel.add(getProductSuggestField());
-			// LeftPanel.add(getComboProductSearch());
 			LeftPanel.add(getContactSuggestField());
 			LeftPanel.add(getLabel_productimage());
 			LeftPanel.add(getLabel_productname());
@@ -855,7 +882,6 @@ public class InvoiceScreen extends JFrame {
 			LeftPanel.add(getLabel_total_label());
 			LeftPanel.add(getSubtotalLabel());
 			LeftPanel.add(getTabel_invoices());
-			LeftPanel.add(getLabel_customer_name());
 			LeftPanel.add(getLabel_subtotal_amount());
 			LeftPanel.add(getLabel_tax_amount());
 			LeftPanel.add(getLabel_total_amount());
@@ -867,12 +893,14 @@ public class InvoiceScreen extends JFrame {
 			LeftPanel.add(getButton_notes());
 			LeftPanel.add(getButton_discount());
 			LeftPanel.add(getButton_pay());
-
+			LeftPanel.add(getLabel_customer_name());
+			LeftPanel.add(getLabel_discount_lable());
+			LeftPanel.add(getLabel_discount_amount());
 		}
 		return LeftPanel;
 	}
 
-	private JPanel getRightPanel() throws SQLException {
+	private BackgroundImageComponent getRightPanel() throws SQLException {
 		if (RightPanel == null) {
 			RightPanel = new BackgroundImageComponent(images[1]);
 			// RightPanel.setBorder(new LineBorder(Color.black, 1, false));
@@ -1201,14 +1229,16 @@ public class InvoiceScreen extends JFrame {
 	 * Update label values
 	 */
 	private void updateDiscountTotalLabels(float discount_amount) {
-		int rows = table_invoiceModel.getRowCount();
-		float totalgrand = netPriceTotal() - discount_amount;
+		float netprice = netPriceTotal();
+		float totalgrand = netprice - discount_amount;
 
-		label_subtotal_amount.setText(Util.toDecimalTwo(totalgrand)
+		label_subtotal_amount.setText(Util.toDecimalTwo(netprice)
 				+ RIGHT_OFFSET);
 		float tax_amount = Float.parseFloat(label_tax_amount.getText().trim());
 		float topay_amount = totalgrand - tax_amount;
 		label_total_amount.setText(Util.toDecimalTwo(topay_amount)
+				+ RIGHT_OFFSET);
+		label_discount_amount.setText(Util.toDecimalTwo(discount_amount)
 				+ RIGHT_OFFSET);
 		label_topay_amount.setText(String.valueOf(Math.round(topay_amount))
 				+ RIGHT_OFFSET);
@@ -1389,15 +1419,15 @@ public class InvoiceScreen extends JFrame {
 				int column = target.getSelectedColumn();
 				// do some action if appropriate column
 				if (column == delete_index) {
-					
+
 					System.out.println("row: " + row + " col:" + column);
-					//remove from product hashmap
-					String productname = (String) table_invoiceModel.getValueAt(row, productname_index);
+					// remove from product hashmap
+					String productname = (String) table_invoiceModel
+							.getValueAt(row, productname_index);
 					products_hashmap.remove(productname);
 					table_invoiceModel.removeRow(row);
 					updateTotalLabels();
-					
-					
+
 				}
 			}
 		}
@@ -1534,8 +1564,11 @@ public class InvoiceScreen extends JFrame {
 		label_tax_amount.setText("00.00" + RIGHT_OFFSET);
 		label_total_amount.setText("00.00" + RIGHT_OFFSET);
 		label_topay_amount.setText("00.00" + RIGHT_OFFSET);
-		
+
 		products_hashmap.clear();
+
+		label_customername_label.setIcon(null);
+		label_customername_label.setText("No Customer");
 
 	}
 
@@ -1544,6 +1577,32 @@ public class InvoiceScreen extends JFrame {
 	}
 
 	private void noteAction() {
+
+	}
+
+	private void newDiscountAction() {
+		String data[] = { "Amount", "Percentage" };
+		JComboBox inputtype = new JComboBox(data);
+		JTextField field_input_quantity = new JTextField();
+
+		final JComponent[] inputs = new JComponent[] {
+				new JLabel("Select Discoutnt type"), inputtype,
+				new JLabel("Enter discount amount"), field_input_quantity };
+		JOptionPane.showMessageDialog(null, inputs, "My custom dialog",
+				JOptionPane.PLAIN_MESSAGE);
+		String discount_type = inputtype.getSelectedItem().toString();
+		String inputamount = field_input_quantity.getText().trim();
+		System.out.println("discount_type: " + discount_type
+				+ ", inputamount: " + inputamount);
+
+		float discount_amount = Float.parseFloat(inputamount);
+		if (discount_type.equalsIgnoreCase("Percentage")) {
+			float total_netprice = netPriceTotal();
+			discount_amount = Util.calculate_discount(total_netprice,
+					discount_amount);
+		}
+
+		updateDiscountTotalLabels(discount_amount);
 
 	}
 
@@ -1597,47 +1656,43 @@ public class InvoiceScreen extends JFrame {
 
 			SwingUtilities.invokeLater(new Runnable() {
 
-			
-
 				public void run() {
 					// Code to save invoice
 					System.out.println("----------------------------------");
 					System.out.println("preparing invoice data");
 					prepareSaveInvoice();
-					int invoice_totalitemsdiscount = Math.round(totalDiscountAmount());
+					// int invoice_totalitemsdiscount = Math
+					// .round(totalDiscountAmount());
+					float discount = Float.parseFloat(label_discount_amount
+							.getText().trim());
+					int invoice_totalitemsdiscount = Math.round(discount);
 					System.out.println("preparing invoice data completed");
-					
-					
 
-					 System.out.println("Starting invoices save");
-					 InvoiceController invoice_controller = new
-					 InvoiceController();
-					 int crmid =
-					 invoice_controller.saveInvoice(invoceproduct_list,
-					 netprice_list, invoice_totalamount,
-					 invoice_totalitemsdiscount, invoice_grandamount,
-					 royality_hashmap);
-					 System.out.println("Invoice save completed id: " +
-					 crmid);
-					 System.out.println("------------------------------------------");
-					 System.out.println();
-					 System.out.println();
-					
-					 // print invoice
-					 System.out.println("Printing invoice receipt");
-					 int earnedpoints =
-					 invoice_controller.getEarnedRoyaltyPoints();
-					 System.out.println("Royality points earned: " +
-					 earnedpoints);
-					 InvoicePrintController printcontroller = new
-					 InvoicePrintController();
-					 printcontroller.printInvoice(tabledata,
-					 invoice_totalamount,  invoice_totalitemsdiscount,
-					 invoice_royaltydiscount  ,
-					 invoice_grandamount, "INV01",
-					 Util.toDecimalTwo(earnedpoints));
-					
-					 voidAction();
+					System.out.println("Starting invoices save");
+					InvoiceController invoice_controller = new InvoiceController();
+					int crmid = invoice_controller.saveInvoice(
+							invoceproduct_list, netprice_list,
+							invoice_totalamount, invoice_totalitemsdiscount,
+							invoice_grandamount, royality_hashmap);
+					System.out.println("Invoice save completed id: " + crmid);
+					System.out
+							.println("------------------------------------------");
+					System.out.println();
+					System.out.println();
+
+					// print invoice
+					System.out.println("Printing invoice receipt");
+					int earnedpoints = invoice_controller
+							.getEarnedRoyaltyPoints();
+					System.out.println("Royality points earned: "
+							+ earnedpoints);
+					InvoicePrintController printcontroller = new InvoicePrintController();
+					printcontroller.printInvoice(tabledata,
+							invoice_totalamount, invoice_totalitemsdiscount,
+							invoice_royaltydiscount, invoice_grandamount,
+							"INV01", Util.toDecimalTwo(earnedpoints));
+
+					voidAction();
 				}
 
 			});
